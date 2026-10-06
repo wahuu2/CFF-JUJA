@@ -1,36 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-const ministries = [
-  {
-    title: "Children",
-    description:
-      "A safe and joyful environment where children can learn, grow and discover faith.",
-    image:
-      "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Youth",
-    description:
-      "A space for young people to connect, grow in faith and build meaningful relationships.",
-    image:
-      "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Women",
-    description:
-      "Building women through fellowship, encouragement, prayer and spiritual growth.",
-    image:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    title: "Men",
-    description:
-      "Encouraging men to grow in faith, purpose, leadership and service.",
-    image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=80",
-  },
-];
 
 const sermons = [
   {
@@ -50,27 +20,6 @@ const sermons = [
   },
 ];
 
-const events = [
-  {
-    date: "18",
-    month: "OCT",
-    title: "Church Gathering",
-    description: "Join us for a time of worship, fellowship and the Word.",
-  },
-  {
-    date: "25",
-    month: "OCT",
-    title: "Youth Fellowship",
-    description: "A dedicated gathering for young people to connect and grow.",
-  },
-  {
-    date: "02",
-    month: "NOV",
-    title: "Special Service",
-    description: "A special time of worship, prayer and fellowship.",
-  },
-];
-
 export default function Home() {
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -83,40 +32,36 @@ useEffect(() => {
   return () => clearInterval(interval);
 }, []);
 
-  return (
-    <main className="min-h-screen bg-[#f8f7f3] text-[#101a2b]">
+const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  return (
+    <main className="min-h-screen bg-[#F5F8FC] text-[#10243D]">
 {/* NAVIGATION */}
 <header className="absolute left-0 right-0 top-0 z-50 md:top-7">
   <nav className="mx-auto max-w-7xl px-5 py-5 md:px-8">
-    <div className="flex items-center justify-between rounded-2xl border border-white/15 bg-[#061B3A]/95 px-5 py-4 shadow-2xl backdrop-blur-md">
+    <div className="flex items-center justify-between rounded-2xl border border-white/15 bg-[#123B63]/95 px-4 py-4 shadow-2xl backdrop-blur-md sm:px-5">
 
       {/* LOGO */}
-      <a href="#" className="flex shrink-0 items-center gap-3">
+      <a href="/" className="flex shrink-0 items-center gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-white bg-white">
-          <span className="text-xl font-bold text-[#0B3D91]">
-            ✝
-          </span>
+          <span className="text-xl font-bold text-[#123B63]">✝</span>
         </div>
 
         <div>
           <p className="text-sm font-bold tracking-[0.18em] text-white">
             CFF
           </p>
-
           <p className="text-[10px] uppercase tracking-[0.15em] text-white/60">
             Juja
           </p>
         </div>
       </a>
 
-
       {/* DESKTOP NAVIGATION */}
       <div className="hidden items-center gap-8 lg:flex">
-
         <a
           href="/"
-          className="relative text-sm font-semibold text-white transition hover:text-red-400"
+          className="relative text-sm font-semibold text-white transition hover:text-red-300"
         >
           Home
           <span className="absolute -bottom-2 left-0 h-[2px] w-full rounded-full bg-[#D62828]" />
@@ -137,76 +82,130 @@ useEffect(() => {
         </a>
 
         <a
-          href="#departments"
+          href="/#departments"
           className="text-sm font-medium text-white/75 transition hover:text-white"
         >
           Departments
         </a>
 
         <a
-          href="#contact"
+          href="/#contact"
           className="text-sm font-medium text-white/75 transition hover:text-white"
         >
           Contact
         </a>
-
       </div>
-
 
       {/* RIGHT SIDE */}
       <div className="flex items-center gap-3">
 
         {/* SOCIAL ICONS */}
-<div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+          <a
+            href="#"
+            aria-label="Facebook"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-sm font-bold text-white transition hover:scale-105"
+          >
+            f
+          </a>
 
-  {/* FACEBOOK */}
-  <a
-    href="#"
-    aria-label="Facebook"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-sm font-bold text-white transition hover:scale-105"
-  >
-    f
-  </a>
-
-  {/* YOUTUBE */}
-  <a
-    href="#"
-    aria-label="YouTube"
-    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF0000] text-xs font-bold text-white transition hover:scale-105"
-  >
-    ▶
-  </a>
-
-</div>
-
+          <a
+            href="#"
+            aria-label="YouTube"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF0000] text-xs font-bold text-white transition hover:scale-105"
+          >
+            ▶
+          </a>
+        </div>
 
         {/* SERMONS */}
         <a
-          href="#sermons"
-          className="hidden rounded-full bg-[#D62828] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-900/20 transition hover:bg-[#B91C1C] md:inline-flex"
+          href="/#sermons"
+          className="hidden rounded-full bg-[#D62828] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-900/15 transition hover:bg-[#A61F1F] md:inline-flex"
         >
           Sermons
         </a>
 
-
-        {/* MOBILE MENU */}
+        {/* MOBILE MENU BUTTON */}
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition hover:border-white/30 hover:bg-white/10 lg:hidden"
-          aria-label="Open menu"
+          onClick={() => setIsMenuOpen((open) => !open)}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white transition hover:border-white/30 hover:bg-white/10 lg:hidden"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
         >
           <span className="text-xl leading-none">
-            ☰
+            {isMenuOpen ? "✕" : "☰"}
           </span>
         </button>
-
       </div>
+    </div>
 
+    {/* MOBILE MENU */}
+    <div
+      id="mobile-navigation"
+      className={`mt-3 overflow-hidden rounded-2xl border border-white/15 bg-[#123B63] shadow-2xl transition-all duration-300 lg:hidden ${
+        isMenuOpen
+          ? "max-h-[500px] translate-y-0 p-5 opacity-100"
+          : "pointer-events-none max-h-0 -translate-y-2 border-transparent p-0 opacity-0"
+      }`}
+      aria-hidden={!isMenuOpen}
+    >
+      <div className="flex flex-col gap-5">
+        <a
+          href="/"
+          onClick={() => setIsMenuOpen(false)}
+          className="font-medium text-white transition hover:text-red-300"
+        >
+          Home
+        </a>
+
+        <a
+          href="/about"
+          onClick={() => setIsMenuOpen(false)}
+          className="font-medium text-white/80 transition hover:text-white"
+        >
+          Discover
+        </a>
+
+        <a
+          href="/ministries"
+          onClick={() => setIsMenuOpen(false)}
+          className="font-medium text-white/80 transition hover:text-white"
+        >
+          Ministries
+        </a>
+
+        <a
+          href="/#departments"
+          onClick={() => setIsMenuOpen(false)}
+          className="font-medium text-white/80 transition hover:text-white"
+        >
+          Departments
+        </a>
+
+        <a
+          href="/#contact"
+          onClick={() => setIsMenuOpen(false)}
+          className="font-medium text-white/80 transition hover:text-white"
+        >
+          Contact
+        </a>
+
+        <a
+          href="/#sermons"
+          onClick={() => setIsMenuOpen(false)}
+          className="rounded-full bg-[#D62828] px-5 py-3 text-center font-semibold text-white transition hover:bg-[#A61F1F]"
+        >
+          Sermons
+        </a>
+      </div>
     </div>
   </nav>
 </header>
 {/* HERO */}
-<section className="relative flex min-h-[720px] items-end overflow-hidden bg-[#071426] md:min-h-[820px]">
+<section className="relative flex min-h-[720px] items-end overflow-hidden bg-[#123B63] md:min-h-[820px]">
 
   {/* HERO SLIDESHOW */}
   <div className="absolute inset-0">
@@ -214,7 +213,7 @@ useEffect(() => {
     {[
       {
         image:
-          "https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=2200&q=85",
+          "https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=2200&q=90",
         label: "Welcome to CFF Juja",
         title: "A place to",
         highlight: "belong.",
@@ -224,7 +223,7 @@ useEffect(() => {
 
       {
         image:
-          "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=2200&q=85",
+          "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=2200&q=90",
         label: "Children's Ministry",
         title: "Growing young",
         highlight: "hearts.",
@@ -234,7 +233,7 @@ useEffect(() => {
 
       {
         image:
-          "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=2200&q=85",
+          "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=2200&q=90",
         label: "Youth Ministry",
         title: "Faith for a",
         highlight: "new generation.",
@@ -244,7 +243,7 @@ useEffect(() => {
 
       {
         image:
-          "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=2200&q=85",
+          "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=2200&q=90",
         label: "Women's Ministry",
         title: "Women walking",
         highlight: "together.",
@@ -254,7 +253,7 @@ useEffect(() => {
 
       {
         image:
-          "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=2200&q=85",
+          "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=2200&q=90",
         label: "Men's Ministry",
         title: "Men of faith.",
         highlight: "Men of purpose.",
@@ -264,7 +263,7 @@ useEffect(() => {
 
       {
         image:
-          "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=2200&q=85",
+          "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=2200&q=90",
         label: "Worship",
         title: "Come and",
         highlight: "worship.",
@@ -274,7 +273,7 @@ useEffect(() => {
 
       {
         image:
-          "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=2200&q=85",
+          "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=2200&q=90",
         label: "Community",
         title: "Life is better",
         highlight: "together.",
@@ -298,7 +297,7 @@ useEffect(() => {
         <img
           src={slide.image}
           alt={slide.label}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-center"
         />
 
       </div>
@@ -308,12 +307,14 @@ useEffect(() => {
   </div>
 
 
-  {/* IMAGE OVERLAY */}
-  <div className="absolute inset-0 bg-[#071426]/50" />
+  {/* SUBTLE IMAGE OVERLAY */}
+  <div className="absolute inset-0 bg-black/15" />
 
-  <div className="absolute inset-0 bg-gradient-to-r from-[#071426]/90 via-[#071426]/55 to-[#071426]/10" />
+  {/* TEXT READABILITY GRADIENT */}
+  <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-transparent" />
 
-  <div className="absolute inset-0 bg-gradient-to-t from-[#071426] via-transparent to-transparent" />
+  {/* BOTTOM FADE */}
+  <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/50 to-transparent" />
 
 
   {/* HERO CONTENT */}
@@ -324,9 +325,9 @@ useEffect(() => {
       {/* DEPARTMENT LABEL */}
       <div className="mb-7 flex items-center gap-3">
 
-        <span className="h-px w-10 bg-[#d5b66a]" />
+        <span className="h-px w-10 bg-[#C62828]" />
 
-        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d5b66a]">
+        <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#FF5A5A]">
           {
             [
               "Welcome to CFF Juja",
@@ -358,7 +359,7 @@ useEffect(() => {
           ][currentSlide]
         }
 
-        <span className="block text-[#d5b66a]">
+        <span className="block text-[#FF4B4B]">
 
           {
             [
@@ -378,7 +379,7 @@ useEffect(() => {
 
 
       {/* DESCRIPTION */}
-      <p className="mt-7 max-w-xl text-base leading-8 text-white/75 md:text-lg">
+      <p className="mt-7 max-w-xl text-base leading-8 text-white/90 md:text-lg">
 
         {
           [
@@ -406,14 +407,14 @@ useEffect(() => {
 
         <a
           href="#visit"
-          className="rounded-full bg-[#d5b66a] px-7 py-4 text-center text-sm font-semibold text-[#071426] transition hover:bg-[#e4cb8b]"
+          className="rounded-full bg-[#C62828] px-7 py-4 text-center text-sm font-semibold text-white shadow-lg shadow-black/20 transition hover:bg-[#E04848]"
         >
           Plan Your Visit
         </a>
 
         <a
           href="#ministries"
-          className="rounded-full border border-white/30 bg-white/5 px-7 py-4 text-center text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/10"
+          className="rounded-full border border-white/40 bg-white/10 px-7 py-4 text-center text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20"
         >
           Explore Ministries
         </a>
@@ -432,8 +433,8 @@ useEffect(() => {
           key={index}
           className={`h-1 rounded-full transition-all duration-500 ${
             index === currentSlide
-              ? "w-10 bg-[#d5b66a]"
-              : "w-2 bg-white/40"
+              ? "w-10 bg-[#C62828]"
+              : "w-2 bg-white/60"
           }`}
         />
 
@@ -448,12 +449,12 @@ useEffect(() => {
       {/* SERVICE STRIP */}
       <section className="relative z-20 mx-auto -mt-10 max-w-6xl px-5">
         <div className="grid overflow-hidden rounded-2xl bg-white shadow-2xl md:grid-cols-3">
-          <div className="border-b border-gray-100 p-7 md:border-b-0 md:border-r">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9b7a32]">
+          <div className="border-b border-[#E3EAF1] p-7 md:border-b-0 md:border-r">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C62828]">
               Sunday
             </p>
 
-            <h3 className="mt-2 text-xl font-semibold text-[#101a2b]">
+            <h3 className="mt-2 text-xl font-semibold text-[#10243D]">
               Main Service
             </h3>
 
@@ -462,12 +463,12 @@ useEffect(() => {
             </p>
           </div>
 
-          <div className="border-b border-gray-100 p-7 md:border-b-0 md:border-r">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9b7a32]">
+          <div className="border-b border-[#E3EAF1] p-7 md:border-b-0 md:border-r">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C62828]">
               Midweek
             </p>
 
-            <h3 className="mt-2 text-xl font-semibold text-[#101a2b]">
+            <h3 className="mt-2 text-xl font-semibold text-[#10243D]">
               Gathering
             </h3>
 
@@ -477,11 +478,11 @@ useEffect(() => {
           </div>
 
           <div className="p-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9b7a32]">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C62828]">
               Connect
             </p>
 
-            <h3 className="mt-2 text-xl font-semibold text-[#101a2b]">
+            <h3 className="mt-2 text-xl font-semibold text-[#10243D]">
               Find Your Community
             </h3>
 
@@ -495,17 +496,17 @@ useEffect(() => {
       {/* ABOUT */}
 <section
   id="about"
-  className="bg-[#f8f7f3] px-5 py-24 md:px-8 md:py-32"
+  className="bg-[#F5F8FC] px-5 py-24 md:px-8 md:py-32"
 >
   <div className="mx-auto max-w-7xl">
 
     {/* SECTION HEADER */}
     <div className="max-w-3xl">
-      <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#9b7a32]">
+      <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C62828]">
         About CFF Juja
       </p>
 
-      <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-tight text-[#101a2b] md:text-5xl">
+      <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-tight text-[#10243D] md:text-5xl">
         A church rooted in faith, purpose and community.
       </h2>
 
@@ -528,11 +529,11 @@ useEffect(() => {
           className="absolute inset-0 h-full w-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/90 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#123B63]/90 via-transparent to-transparent" />
 
         <div className="absolute bottom-8 left-8 right-8">
 
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#d5b66a]">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#C62828]">
             Christian Foundation Fellowship
           </p>
 
@@ -554,13 +555,13 @@ useEffect(() => {
       <div className="grid gap-5 sm:grid-cols-2">
 
         {/* THEME OF THE YEAR */}
-        <div className="relative overflow-hidden rounded-[1.5rem] bg-[#071426] p-7 sm:col-span-2">
+        <div className="relative overflow-hidden rounded-[1.5rem] bg-[#123B63] p-7 sm:col-span-2">
 
-          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border-[30px] border-[#d5b66a]/10" />
+          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border-[30px] border-[#C62828]/10" />
 
           <div className="relative">
 
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#d5b66a]">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#C62828]">
               Theme of the Year
             </p>
 
@@ -579,17 +580,17 @@ useEffect(() => {
 
 
         {/* MISSION */}
-        <div className="rounded-[1.5rem] border border-gray-200 bg-white p-7">
+        <div className="rounded-[1.5rem] border border-[#D9E2EC] bg-white p-7">
 
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#071426] text-[#d5b66a]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#123B63] text-[#C62828]">
             ✦
           </div>
 
-          <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-[#9b7a32]">
+          <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-[#C62828]">
             Our Mission
           </p>
 
-          <h3 className="mt-3 text-2xl font-semibold text-[#101a2b]">
+          <h3 className="mt-3 text-2xl font-semibold text-[#10243D]">
             Our Mission
           </h3>
 
@@ -602,17 +603,17 @@ useEffect(() => {
 
 
         {/* VISION */}
-        <div className="rounded-[1.5rem] border border-gray-200 bg-white p-7">
+        <div className="rounded-[1.5rem] border border-[#D9E2EC] bg-white p-7">
 
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#d5b66a]/20 text-[#9b7a32]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#C62828]/20 text-[#C62828]">
             ◇
           </div>
 
-          <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-[#9b7a32]">
+          <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-[#C62828]">
             Our Vision
           </p>
 
-          <h3 className="mt-3 text-2xl font-semibold text-[#101a2b]">
+          <h3 className="mt-3 text-2xl font-semibold text-[#10243D]">
             Our Vision
           </h3>
 
@@ -629,15 +630,15 @@ useEffect(() => {
 
 
     {/* BOTTOM CTA */}
-    <div className="mt-10 flex flex-col items-start justify-between gap-6 rounded-[1.5rem] border border-gray-200 bg-white p-7 sm:flex-row sm:items-center md:p-8">
+    <div className="mt-10 flex flex-col items-start justify-between gap-6 rounded-[1.5rem] border border-[#D9E2EC] bg-white p-7 sm:flex-row sm:items-center md:p-8">
 
       <div>
 
-        <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#9b7a32]">
+        <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#C62828]">
           Learn More
         </p>
 
-        <h3 className="mt-2 text-2xl font-semibold text-[#101a2b]">
+        <h3 className="mt-2 text-2xl font-semibold text-[#10243D]">
           Discover our story and what we believe.
         </h3>
 
@@ -651,11 +652,11 @@ useEffect(() => {
 
       <a
         href="/about"
-        className="inline-flex shrink-0 items-center gap-3 rounded-full bg-[#071426] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#10243e]"
+        className="inline-flex shrink-0 items-center gap-3 rounded-full bg-[#123B63] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#0D2D4D]"
       >
         About Us
 
-        <span className="text-[#d5b66a]">
+        <span className="text-[#C62828]">
           →
         </span>
       </a>
@@ -665,378 +666,540 @@ useEffect(() => {
   </div>
 </section>
 
-      {/* MINISTRIES */}
-      <section id="ministries" className="bg-[#071426] px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#d5b66a]">
-                Find Your Place
-              </p>
-
-              <h2 className="mt-4 text-4xl font-semibold text-white md:text-5xl">
-                Ministries
-              </h2>
-            </div>
-
-            <p className="max-w-md text-sm leading-7 text-white/55">
-              There is a place for everyone to connect, serve, grow and build
-              meaningful relationships.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {ministries.map((ministry) => (
-              <article
-                key={ministry.title}
-                className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={ministry.image}
-                    alt={ministry.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#071426] via-transparent to-transparent" />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white">
-                    {ministry.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-7 text-white/55">
-                    {ministry.description}
-                  </p>
-
-                  <a
-                    href="#"
-                    className="mt-5 inline-block text-sm font-semibold text-[#d5b66a]"
-                  >
-                    Discover →
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SERMONS */}
-      <section id="sermons" className="px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[1fr_2fr]">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#9b7a32]">
-                Watch & Listen
-              </p>
-
-              <h2 className="mt-4 text-4xl font-semibold leading-tight text-[#101a2b] md:text-5xl">
-                Messages for your journey.
-              </h2>
-
-              <p className="mt-6 max-w-md leading-7 text-gray-500">
-                Explore sermons, Bible teaching and messages designed to help
-                you grow in faith.
-              </p>
-
-              <a
-                href="#"
-                className="mt-8 inline-flex rounded-full bg-[#071426] px-6 py-3 text-sm font-semibold text-white"
-              >
-                View All Sermons
-              </a>
-            </div>
-
-            <div className="grid gap-4">
-              {sermons.map((sermon, index) => (
-                <article
-                  key={sermon.title}
-                  className="group flex items-center gap-5 rounded-2xl border border-gray-200 bg-white p-5 transition hover:-translate-y-1 hover:shadow-xl"
-                >
-                  <div className="flex h-20 w-24 shrink-0 items-center justify-center rounded-xl bg-[#071426]">
-                    <span className="text-2xl text-[#d5b66a]">▶</span>
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9b7a32]">
-                      {sermon.category}
-                    </p>
-
-                    <h3 className="mt-1 truncate text-lg font-semibold text-[#101a2b]">
-                      {sermon.title}
-                    </h3>
-
-                    <p className="mt-1 text-sm text-gray-500">
-                      {sermon.date}
-                    </p>
-                  </div>
-
-                  <span className="hidden text-xl text-gray-400 transition group-hover:text-[#9b7a32] sm:block">
-                    →
-                  </span>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* EVENTS */}
-      <section id="events" className="bg-[#eeece5] px-5 py-24 md:px-8 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#9b7a32]">
-                What's Happening
-              </p>
-
-              <h2 className="mt-4 text-4xl font-semibold text-[#101a2b] md:text-5xl">
-                Upcoming events
-              </h2>
-            </div>
-
-            <a
-              href="#"
-              className="text-sm font-semibold text-[#071426]"
-            >
-              View all events →
-            </a>
-          </div>
-
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {events.map((event) => (
-              <article
-                key={event.title}
-                className="rounded-2xl bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-4xl font-semibold text-[#071426]">
-                      {event.date}
-                    </p>
-
-                    <p className="mt-1 text-xs font-bold tracking-[0.2em] text-[#9b7a32]">
-                      {event.month}
-                    </p>
-                  </div>
-
-                  <span className="text-2xl text-[#d5b66a]">✦</span>
-                </div>
-
-                <h3 className="mt-8 text-xl font-semibold text-[#101a2b]">
-                  {event.title}
-                </h3>
-
-                <p className="mt-3 text-sm leading-7 text-gray-500">
-                  {event.description}
-                </p>
-
-                <a
-                  href="#"
-                  className="mt-6 inline-block text-sm font-semibold text-[#071426]"
-                >
-                  Event details →
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* LEADERSHIP */}
-<section className="px-5 py-24 md:px-8 md:py-32">
+{/* PASTORAL BOARD */}
+<section className="bg-[#F7F9FC] px-5 py-24 md:px-8 md:py-32">
   <div className="mx-auto max-w-7xl">
 
     {/* HEADER */}
     <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
       <div>
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#d5b66a]">
-          Our Leadership
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C62828]">
+          Pastoral Board
         </p>
 
-        <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight text-[#071426] md:text-5xl">
-          Servants leading with faith and purpose.
+        <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-tight text-[#123B63] md:text-5xl">
+          Serving the church with faith and purpose.
         </h2>
 
-        <p className="mt-5 max-w-2xl leading-7 text-[#071426]/60">
-          Meet some of the people who serve and lead the CFF Juja church
-          family.
+        <p className="mt-5 max-w-2xl leading-7 text-[#123B63]/60">
+          Meet the pastors who provide spiritual leadership, guidance and
+          care for the CFF Juja church family.
         </p>
       </div>
 
       <a
         href="/about"
-        className="inline-flex w-fit items-center gap-3 rounded-full border border-[#071426]/15 px-6 py-3 text-sm font-semibold text-[#071426] transition hover:bg-[#071426] hover:text-white"
+        className="inline-flex w-fit items-center gap-3 rounded-full border border-[#123B63]/15 px-6 py-3 text-sm font-semibold text-[#123B63] transition hover:bg-[#123B63] hover:text-white"
       >
-        Meet Our Leadership
+        Meet the Pastoral Board
         <span>→</span>
       </a>
     </div>
 
-    {/* PASTORS */}
+
+    {/* PASTORAL BOARD MEMBERS */}
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 
       {/* Pastor 1 */}
-      <div className="group overflow-hidden rounded-[1.75rem] bg-[#f4f1e9]">
+      <div className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+
         <div className="relative aspect-[4/5] overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85"
-            alt="Pastor placeholder"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=90"
+            alt="Pastoral Board member"
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#123B63]/45 via-transparent to-transparent" />
         </div>
 
         <div className="p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d5b66a]">
-            Senior Pastor
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#C62828]">
+            Pastoral Board
           </p>
 
-          <h3 className="mt-2 text-xl font-semibold text-[#071426]">
+          <h3 className="mt-2 text-xl font-semibold text-[#123B63]">
             Pastor Name
           </h3>
 
-          <p className="mt-2 text-sm leading-6 text-[#071426]/55">
-            Official leadership profile to be confirmed.
+          <p className="mt-2 text-sm leading-6 text-[#123B63]/55">
+            Official pastoral profile to be confirmed.
           </p>
         </div>
       </div>
+
 
       {/* Pastor 2 */}
-      <div className="group overflow-hidden rounded-[1.75rem] bg-[#f4f1e9]">
+      <div className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+
         <div className="relative aspect-[4/5] overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=85"
-            alt="Pastor placeholder"
+            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=90"
+            alt="Pastoral Board member"
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#123B63]/45 via-transparent to-transparent" />
         </div>
 
         <div className="p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d5b66a]">
-            Pastor
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#C62828]">
+            Pastoral Board
           </p>
 
-          <h3 className="mt-2 text-xl font-semibold text-[#071426]">
+          <h3 className="mt-2 text-xl font-semibold text-[#123B63]">
             Pastor Name
           </h3>
 
-          <p className="mt-2 text-sm leading-6 text-[#071426]/55">
-            Official leadership profile to be confirmed.
+          <p className="mt-2 text-sm leading-6 text-[#123B63]/55">
+            Official pastoral profile to be confirmed.
           </p>
         </div>
       </div>
+
 
       {/* Pastor 3 */}
-      <div className="group overflow-hidden rounded-[1.75rem] bg-[#f4f1e9]">
+      <div className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+
         <div className="relative aspect-[4/5] overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=85"
-            alt="Pastor placeholder"
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=90"
+            alt="Pastoral Board member"
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#123B63]/45 via-transparent to-transparent" />
         </div>
 
         <div className="p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d5b66a]">
-            Pastor
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#C62828]">
+            Pastoral Board
           </p>
 
-          <h3 className="mt-2 text-xl font-semibold text-[#071426]">
+          <h3 className="mt-2 text-xl font-semibold text-[#123B63]">
             Pastor Name
           </h3>
 
-          <p className="mt-2 text-sm leading-6 text-[#071426]/55">
-            Official leadership profile to be confirmed.
+          <p className="mt-2 text-sm leading-6 text-[#123B63]/55">
+            Official pastoral profile to be confirmed.
           </p>
         </div>
       </div>
+
 
       {/* Pastor 4 */}
-      <div className="group overflow-hidden rounded-[1.75rem] bg-[#f4f1e9]">
+      <div className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-500 hover:-translate-y-1 hover:shadow-xl">
+
         <div className="relative aspect-[4/5] overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=85"
-            alt="Pastor placeholder"
+            src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=90"
+            alt="Pastoral Board member"
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071426]/70 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#123B63]/45 via-transparent to-transparent" />
         </div>
 
         <div className="p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d5b66a]">
-            Pastor
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#C62828]">
+            Pastoral Board
           </p>
 
-          <h3 className="mt-2 text-xl font-semibold text-[#071426]">
+          <h3 className="mt-2 text-xl font-semibold text-[#123B63]">
             Pastor Name
           </h3>
 
-          <p className="mt-2 text-sm leading-6 text-[#071426]/55">
-            Official leadership profile to be confirmed.
+          <p className="mt-2 text-sm leading-6 text-[#123B63]/55">
+            Official pastoral profile to be confirmed.
           </p>
         </div>
       </div>
 
-    </div>
-
-    {/* VIEW MORE */}
-    <div className="mt-10 text-center">
-      <a
-        href="/about"
-        className="inline-flex items-center gap-3 rounded-full bg-[#071426] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#102844]"
-      >
-        View All Pastors
-        <span>→</span>
-      </a>
     </div>
 
   </div>
 </section>
 
-      {/* GIVE */}
-      <section id="give" className="px-5 pb-24 md:px-8 md:pb-32">
-        <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-[#d5b66a] px-7 py-16 md:px-14 md:py-20">
-            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full border-[40px] border-white/10" />
+{/* MINISTRIES */}
+<section id="ministries" className="bg-[#F5F7FA] px-5 py-24 md:px-8 md:py-32">
+  <div className="mx-auto max-w-7xl">
 
-            <div className="relative max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#071426]/60">
-                Give
-              </p>
+    {/* HEADER */}
+    <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C62828]">
+          Find Your Place
+        </p>
 
-              <h2 className="mt-4 text-4xl font-semibold leading-tight text-[#071426] md:text-5xl">
-                Generosity makes a difference.
-              </h2>
+        <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#123B63] md:text-5xl">
+          Our Ministries
+        </h2>
 
-              <p className="mt-5 leading-8 text-[#071426]/65">
-                Official giving methods and payment information will be added
-                here after confirmation from the church.
-              </p>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-[#123B63]/60">
+          Discover a place to connect, grow in faith, serve others and use the
+          gifts God has given you.
+        </p>
+      </div>
 
-              <button className="mt-8 rounded-full bg-[#071426] px-7 py-4 text-sm font-semibold text-white">
-                Giving Information
-              </button>
-            </div>
+      <a
+        href="/ministries"
+        className="inline-flex w-fit items-center gap-3 rounded-full border border-[#123B63]/15 px-6 py-3 text-sm font-semibold text-[#123B63] transition hover:bg-[#123B63] hover:text-white"
+      >
+        View All Ministries
+        <span>→</span>
+      </a>
+    </div>
+
+
+    {/* MINISTRY CARDS */}
+    <div className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-4">
+
+      {/* MUSIC MINISTRY */}
+      <article className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+        <div className="relative h-64 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1400&q=90"
+            alt="Music Ministry"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+          <div className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white backdrop-blur-md ring-1 ring-white/20">
+            01
+          </div>
+
+          <div className="absolute bottom-6 left-6 right-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
+              CFF Juja
+            </p>
+
+            <h3 className="mt-2 text-2xl font-semibold leading-tight text-white">
+              Music Ministry
+            </h3>
           </div>
         </div>
-      </section>
 
-      {/* FIND US */}
-<section id="visit" className="bg-[#071426] px-5 py-24 md:px-8 md:py-28">
+        <div className="p-7">
+          <p className="text-sm leading-7 text-[#123B63]/60">
+            Using music and worship to create an atmosphere where people can
+            praise God, encounter His presence, and grow in their faith.
+          </p>
+
+          <a
+            href="/ministries/music"
+            className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#C62828] transition-all duration-300 group-hover:gap-3"
+          >
+            Learn More
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+
+      {/* MEDIA MINISTRY */}
+      <article className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+        <div className="relative h-64 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=1400&q=90"
+            alt="Media Ministry"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+          <div className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white backdrop-blur-md ring-1 ring-white/20">
+            02
+          </div>
+
+          <div className="absolute bottom-6 left-6 right-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
+              CFF Juja
+            </p>
+
+            <h3 className="mt-2 text-2xl font-semibold leading-tight text-white">
+              Media Ministry
+            </h3>
+          </div>
+        </div>
+
+        <div className="p-7">
+          <p className="text-sm leading-7 text-[#123B63]/60">
+            Helping share the message of CFF Juja through photography, video,
+            livestreaming, social media, and digital communication.
+          </p>
+
+          <a
+            href="/ministries/media"
+            className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#C62828] transition-all duration-300 group-hover:gap-3"
+          >
+            Learn More
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+
+      {/* USHERING MINISTRY */}
+      <article className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+        <div className="relative h-64 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1519491050282-cf00c82424b4?auto=format&fit=crop&w=1400&q=90"
+            alt="Ushering Ministry"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+          <div className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white backdrop-blur-md ring-1 ring-white/20">
+            03
+          </div>
+
+          <div className="absolute bottom-6 left-6 right-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
+              CFF Juja
+            </p>
+
+            <h3 className="mt-2 text-2xl font-semibold leading-tight text-white">
+              Ushering Ministry
+            </h3>
+          </div>
+        </div>
+
+        <div className="p-7">
+          <p className="text-sm leading-7 text-[#123B63]/60">
+            Serving with warmth and excellence by welcoming people, helping
+            them feel comfortable, and supporting church services.
+          </p>
+
+          <a
+            href="/ministries/ushering"
+            className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#C62828] transition-all duration-300 group-hover:gap-3"
+          >
+            Learn More
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+
+      {/* INTERCESSORY MINISTRY */}
+      <article className="group overflow-hidden rounded-[1.75rem] bg-white shadow-sm ring-1 ring-[#123B63]/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+        <div className="relative h-64 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=1400&q=90"
+            alt="Intercessory Ministry"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+          <div className="absolute left-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white backdrop-blur-md ring-1 ring-white/20">
+            04
+          </div>
+
+          <div className="absolute bottom-6 left-6 right-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/60">
+              CFF Juja
+            </p>
+
+            <h3 className="mt-2 text-2xl font-semibold leading-tight text-white">
+              Intercessory Ministry
+            </h3>
+          </div>
+        </div>
+
+        <div className="p-7">
+          <p className="text-sm leading-7 text-[#123B63]/60">
+            A ministry committed to prayer, standing in the gap for
+            individuals, families, the church, and the wider community.
+          </p>
+
+          <a
+            href="/ministries/intercessory"
+            className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#C62828] transition-all duration-300 group-hover:gap-3"
+          >
+            Learn More
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+     {/* SERMONS */}
+<section id="sermons" className="bg-[#F7F9FC] px-5 py-24 md:px-8 md:py-32">
+  <div className="mx-auto max-w-7xl">
+    <div className="grid gap-12 lg:grid-cols-[1fr_2fr] lg:items-center">
+
+      {/* LEFT */}
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C62828]">
+          Sermons & Teachings
+        </p>
+
+        <h2 className="mt-4 text-4xl font-semibold leading-tight text-[#10243D] md:text-5xl">
+          Grow deeper in the Word.
+        </h2>
+
+        <p className="mt-6 max-w-md leading-7 text-gray-500">
+          Listen to powerful messages, biblical teachings and sermons that
+          encourage you to grow in your faith and walk with Christ.
+        </p>
+
+        <a
+          href="/sermons"
+          className="mt-8 inline-flex items-center rounded-full bg-[#123B63] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0E2F4F]"
+        >
+          Explore Sermons
+          <span className="ml-2">→</span>
+        </a>
+      </div>
+
+      {/* SERMON LIST */}
+      <div className="grid gap-4">
+        {sermons.map((sermon) => (
+          <article
+            key={sermon.title}
+            className="group flex items-center gap-5 rounded-2xl border border-[#D9E2EC] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+          >
+            {/* PLAY BUTTON */}
+            <div className="flex h-20 w-24 shrink-0 items-center justify-center rounded-xl bg-[#123B63] transition group-hover:bg-[#C62828]">
+              <span className="ml-1 text-xl text-white">
+                ▶
+              </span>
+            </div>
+
+            {/* CONTENT */}
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#C62828]">
+                {sermon.category}
+              </p>
+
+              <h3 className="mt-1 truncate text-lg font-semibold text-[#10243D]">
+                {sermon.title}
+              </h3>
+
+              <p className="mt-1 text-sm text-gray-500">
+                {sermon.date}
+              </p>
+            </div>
+
+            {/* ARROW */}
+            <span className="hidden text-xl text-[#123B63] transition group-hover:translate-x-1 group-hover:text-[#C62828] sm:block">
+              →
+            </span>
+          </article>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{/* GALLERY */}
+<section id="gallery" className="bg-white px-5 py-24 md:px-8 md:py-32">
+  <div className="mx-auto max-w-7xl">
+
+    {/* HEADER */}
+    <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C62828]">
+          Life at CFF Juja
+        </p>
+
+        <h2 className="mt-4 text-4xl font-semibold leading-tight text-[#10243D] md:text-5xl">
+          Moments of faith & fellowship.
+        </h2>
+
+        <p className="mt-5 max-w-xl leading-7 text-gray-500">
+          Take a glimpse into our worship, fellowship, community and
+          moments we share together as a church family.
+        </p>
+      </div>
+
+      <a
+        href="/gallery"
+        className="inline-flex w-fit items-center rounded-full bg-[#123B63] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0E2F4F]"
+      >
+        View Gallery
+        <span className="ml-2">→</span>
+      </a>
+    </div>
+
+    {/* GALLERY GRID */}
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+
+      {/* LARGE IMAGE */}
+      <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-3xl">
+        <img
+          src="/images/gallery/gallery-1.jpg"
+          alt="CFF Juja church fellowship"
+          className="h-full min-h-[320px] w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+        <div className="absolute bottom-5 left-5">
+          <p className="text-sm font-semibold text-white">
+            Worship & Fellowship
+          </p>
+        </div>
+      </div>
+
+      {/* IMAGE 2 */}
+      <div className="group relative overflow-hidden rounded-3xl">
+        <img
+          src="/images/gallery/gallery-2.jpg"
+          alt="CFF Juja church service"
+          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
+        />
+      </div>
+
+      {/* IMAGE 3 */}
+      <div className="group relative overflow-hidden rounded-3xl">
+        <img
+          src="/images/gallery/gallery-3.jpg"
+          alt="CFF Juja worship"
+          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
+        />
+      </div>
+
+      {/* IMAGE 4 */}
+      <div className="group relative overflow-hidden rounded-3xl">
+        <img
+          src="/images/gallery/gallery-4.jpg"
+          alt="CFF Juja community"
+          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
+        />
+      </div>
+
+      {/* IMAGE 5 */}
+      <div className="group relative overflow-hidden rounded-3xl">
+        <img
+          src="/images/gallery/gallery-5.jpg"
+          alt="CFF Juja fellowship"
+          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+          {/* FIND US */}
+<section id="visit" className="bg-[#123B63] px-5 py-24 md:px-8 md:py-28">
   <div className="mx-auto max-w-7xl">
 
     {/* HEADER */}
     <div className="mb-12">
-      <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#d5b66a]">
+      <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C62828]">
         Find Us
       </p>
 
@@ -1070,15 +1233,15 @@ useEffect(() => {
 
 
       {/* LOCATION INFORMATION */}
-      <div className="flex flex-col justify-between bg-[#0b1b30] p-8 md:p-10">
+      <div className="flex flex-col justify-between bg-[#0F3152] p-8 md:p-10">
 
         <div>
 
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#d5b66a]/10 text-2xl text-[#d5b66a]">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#C62828]/10 text-2xl text-[#C62828]">
             📍
           </div>
 
-          <p className="mt-8 text-xs font-bold uppercase tracking-[0.25em] text-[#d5b66a]">
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.25em] text-[#C62828]">
             CFF Juja
           </p>
 
@@ -1125,7 +1288,7 @@ useEffect(() => {
             href="https://www.google.com/maps/search/?api=1&query=CFF+Juja+Kenya"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 rounded-full bg-[#d5b66a] px-6 py-4 text-sm font-semibold text-[#071426] transition hover:bg-[#e4cb8b]"
+            className="inline-flex items-center justify-center gap-3 rounded-full bg-[#C62828] px-6 py-4 text-sm font-semibold text-[#123B63] transition hover:bg-[#E04848]"
           >
             Get Directions
             <span>→</span>
@@ -1141,7 +1304,7 @@ useEffect(() => {
 </section>
 
 {/* FOOTER */}
-<footer className="bg-[#061B3A] px-5 pt-16 text-white md:px-8">
+<footer className="bg-[#123B63] px-5 pt-16 text-white md:px-8">
   <div className="mx-auto max-w-7xl">
 
     {/* MAIN FOOTER */}
@@ -1153,7 +1316,7 @@ useEffect(() => {
         {/* LOGO */}
         <a href="#" className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white bg-white">
-            <span className="text-xl font-bold text-[#0B3D91]">
+            <span className="text-xl font-bold text-[#123B63]">
               ✝
             </span>
           </div>
@@ -1240,7 +1403,7 @@ useEffect(() => {
           </a>
 
           <a
-            href="#"
+            href="/Terms"
             className="block transition hover:text-white"
           >
             Terms of Use
@@ -1293,57 +1456,48 @@ useEffect(() => {
 
 
       {/* MINISTRIES */}
-      <div>
-        <h3 className="text-sm font-semibold text-white">
-          Ministries
-        </h3>
+<div>
+  <h3 className="text-sm font-semibold text-white">
+    Ministries
+  </h3>
 
-        <div className="mt-5 space-y-3 text-sm text-white/50">
+  <div className="mt-5 space-y-3 text-sm text-white/50">
+    <a
+      href="/ministries/music"
+      className="block transition hover:text-[#C62828]"
+    >
+      Music
+    </a>
 
-          <a
-            href="#ministries"
-            className="block transition hover:text-white"
-          >
-            Children
-          </a>
+    <a
+      href="/ministries/media"
+      className="block transition hover:text-[#C62828]"
+    >
+      Media
+    </a>
 
-          <a
-            href="#ministries"
-            className="block transition hover:text-white"
-          >
-            Youth
-          </a>
+    <a
+      href="/ministries/ushering"
+      className="block transition hover:text-[#C62828]"
+    >
+      Ushering
+    </a>
 
-          <a
-            href="#ministries"
-            className="block transition hover:text-white"
-          >
-            Women
-          </a>
+    <a
+      href="/ministries/intercessory"
+      className="block transition hover:text-[#C62828]"
+    >
+      Intercessory
+    </a>
 
-          <a
-            href="#ministries"
-            className="block transition hover:text-white"
-          >
-            Men
-          </a>
-
-          <a
-            href="#ministries"
-            className="block transition hover:text-white"
-          >
-            Worship
-          </a>
-
-          <a
-            href="#ministries"
-            className="block transition hover:text-white"
-          >
-            Community
-          </a>
-
-        </div>
-      </div>
+    <a
+      href="/ministries/hospitality"
+      className="block transition hover:text-[#C62828]"
+    >
+      Hospitality
+    </a>
+  </div>
+</div>
 
     </div>
 
@@ -1355,9 +1509,17 @@ useEffect(() => {
         © 2026 CFF Juja. All rights reserved.
       </p>
 
-      <p>
-        Website prototype — official information pending confirmation.
-      </p>
+     <p>
+  Designed by{" "}
+  <a
+    href="https://lilywahu.vercel.app"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="font-medium text-white transition hover:text-[#C62828]"
+  >
+    Lilahu
+  </a>
+</p>
 
     </div>
 
