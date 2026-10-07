@@ -46,6 +46,15 @@ const ministries = [
     image:
       "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1400&q=85",
   },
+  {
+    slug: "evangelism",
+    title: "Evangelism & Missions",
+    number: "06",
+    description:
+      "Sharing the Gospel, reaching people with the love of Christ, and supporting the church's mission to make disciples and serve the wider community.",
+    image:
+      "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1400&q=85",
+  },
 ];
 
 export default function MinistriesPage() {

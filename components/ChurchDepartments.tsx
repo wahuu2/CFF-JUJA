@@ -9,15 +9,50 @@ const departments = [
     description:
       "Ministries that help us worship, grow in faith, serve others and build a strong church family.",
     items: [
-      "Worship & Praise",
-      "Children's Ministry",
-      "Youth Ministry",
-      "Men's Ministry",
-      "Women's Ministry",
-      "Prayer Ministry",
-      "Evangelism & Missions",
-      "Media & ICT",
-      "Ushering",
+      {
+        name: "Worship & Praise",
+        href: "/ministries/music",
+      },
+      {
+        name: "Children's Ministry",
+        href: "/departments/children",
+      },
+      {
+        name: "Youth Ministry",
+        href: "/departments/youth",
+      },
+      {
+        name: "Men's Ministry",
+        href: "/departments/men",
+      },
+      {
+        name: "Women's Ministry",
+        href: "/departments/women",
+      },
+      {
+        name: "Prayer Ministry",
+        href: "/departments/prayer",
+      },
+      {
+        name: "Evangelism & Missions",
+        href: "/ministries/evangelism",
+      },
+      {
+        name: "Media & ICT",
+        href: "/ministries/media",
+      },
+      {
+        name: "Ushering",
+        href: "/ministries/ushering",
+      },
+      {
+        name: "Intercessory",
+        href: "/ministries/intercessory",
+      },
+      {
+        name: "Hospitality ",
+        href: "/ministries/hospitality",
+      },
     ],
   },
   {
@@ -26,10 +61,22 @@ const departments = [
     description:
       "Leadership structures that provide spiritual direction, oversight and accountability within the church.",
     items: [
-      "Church Leadership Board",
-      "Elders",
-      "Deacons",
-      "Ministry Leadership",
+      {
+        name: "Church Leadership Board",
+        href: "/departments/boards/church-leadership",
+      },
+      {
+        name: "Elders",
+        href: "/departments/boards/elders",
+      },
+      {
+        name: "Deacons",
+        href: "/departments/boards/deacons",
+      },
+      {
+        name: "Ministry Leadership",
+        href: "/departments/boards/ministry-leadership",
+      },
     ],
   },
   {
@@ -38,11 +85,26 @@ const departments = [
     description:
       "Teams that support the church through planning, administration, development and service.",
     items: [
-      "Finance Committee",
-      "Welfare Committee",
-      "Events Committee",
-      "Development Committee",
-      "Discipleship Committee",
+      {
+        name: "Finance Committee",
+        href: "/departments/committees/finance",
+      },
+      {
+        name: "Welfare Committee",
+        href: "/departments/committees/welfare",
+      },
+      {
+        name: "Events Committee",
+        href: "/departments/committees/events",
+      },
+      {
+        name: "Development Committee",
+        href: "/departments/committees/development",
+      },
+      {
+        name: "Discipleship Committee",
+        href: "/departments/committees/discipleship",
+      },
     ],
   },
   {
@@ -51,12 +113,30 @@ const departments = [
     description:
       "Smaller communities where people connect, fellowship, grow together and support one another.",
     items: [
-      "Men's Groups",
-      "Women's Groups",
-      "Youth Groups",
-      "Young Adults",
-      "Small Groups",
-      "Fellowship Groups",
+      {
+        name: "Men's Groups",
+        href: "/departments/groups/men",
+      },
+      {
+        name: "Women's Groups",
+        href: "/departments/groups/women",
+      },
+      {
+        name: "Youth Groups",
+        href: "/departments/groups/youth",
+      },
+      {
+        name: "Young Adults",
+        href: "/departments/groups/young-adults",
+      },
+      {
+        name: "Small Groups",
+        href: "/departments/groups/small-groups",
+      },
+      {
+        name: "Fellowship Groups",
+        href: "/departments/groups/fellowship",
+      },
     ],
   },
 ];
@@ -160,14 +240,21 @@ export default function ChurchDepartments() {
 
                       <div className="grid gap-3 sm:grid-cols-2">
                         {department.items.map((item) => (
-                          <div
-                            key={item}
-                            className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 text-sm text-white"
-                          >
-                            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E53935]" />
-                            {item}
-                          </div>
-                        ))}
+  <a
+    key={item.href}
+    href={item.href}
+    className="group/item flex items-center justify-between gap-3 rounded-xl bg-white/10 px-4 py-3 text-sm text-white transition hover:bg-white/15"
+  >
+    <span className="flex items-center gap-3">
+      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#E53935]" />
+      {item.name}
+    </span>
+
+    <span className="text-white/40 transition-transform group-hover/item:translate-x-1 group-hover/item:text-white">
+      →
+    </span>
+  </a>
+))}
                       </div>
                     </div>
                   </div>

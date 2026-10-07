@@ -78,7 +78,72 @@ const ministries = {
     "If you have a gift for singing, playing an instrument, or supporting worship through music, consider connecting with the Music Ministry to learn how you can serve.",
 },
 
-  
+evangelism: {
+  title: "Evangelism & Missions",
+  label: "Evangelism & Outreach",
+
+  image:
+    "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=1600&q=85",
+
+  intro:
+    "Sharing the Gospel, reaching people with the love of Christ, and supporting the church's mission to make disciples and serve the wider community.",
+
+  about:
+    "The Evangelism & Missions Ministry exists to help the church fulfil the Great Commission by sharing the Gospel of Jesus Christ and reaching people with God's love. The ministry encourages members to be intentional about sharing their faith, supporting outreach activities, and participating in missions that bring hope and practical help to communities.",
+
+  purpose:
+    "To equip and encourage believers to share the Gospel, reach people for Christ, make disciples, and participate in mission activities that demonstrate God's love in practical ways.",
+
+  scripture:
+    "Go into all the world and preach the gospel to all creation.",
+
+  scriptureReference: "Mark 16:15",
+
+  activities: [
+    "Community evangelism and outreach",
+    "Sharing the Gospel with individuals and families",
+    "Supporting missions and missionary activities",
+    "Organising evangelism campaigns and open-air meetings",
+    "Visiting and ministering to people in the community",
+    "Supporting practical outreach and community service initiatives",
+  ],
+
+  keyRoles: [
+    "Share the Gospel of Jesus Christ with others",
+    "Encourage members to become intentional witnesses for Christ",
+    "Organise and support evangelism and outreach activities",
+    "Reach out to communities with the message of hope and salvation",
+    "Support missions and approved missionary initiatives",
+    "Follow up and encourage people who respond to the Gospel",
+  ],
+
+  impact: [
+    "More people hear and respond to the Gospel",
+    "Members become more confident in sharing their faith",
+    "Communities experience the love of Christ through practical service",
+    "New believers are encouraged and connected to the church community",
+  ],
+
+  requirements: [
+    "Be born again",
+    "Have a genuine desire to share the Gospel",
+    "Have a heart for people and communities",
+    "Be willing to learn and participate in evangelism activities",
+    "Demonstrate good character and respect toward others",
+  ],
+
+  additionalActivities: [
+    "Evangelism training",
+    "Community outreach",
+    "Open-air evangelism",
+    "Missions and mission support",
+    "Community service activities",
+    "Follow-up and discipleship",
+  ],
+
+  involvement:
+    "If you have a heart for reaching people and sharing the love of Christ, connect with the Evangelism & Missions Ministry and discover how you can participate in outreach, missions, and making disciples.",
+},
 media: {
   title: "Media Ministry",
   label: "Media & Communications",
@@ -340,6 +405,7 @@ export default async function MinistryPage({
   const isHospitality = slug === "hospitality";
   const isMusic = slug === "music";
   const isMedia = slug === "media";
+  const isEvangelism = slug === "evangelism";
 
   return (
     <main className="min-h-screen bg-white">
@@ -951,6 +1017,230 @@ export default async function MinistryPage({
     </section>
   </>
 
+) : isEvangelism ? (
+  <>
+    {/* ABOUT */}
+    <section className="px-5 py-24 md:px-8 md:py-32">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#D62828]">
+            About The Ministry
+          </p>
+
+          <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-tight text-[#061B3A] md:text-5xl">
+            Reaching people
+            <br />
+            with the Gospel.
+          </h2>
+        </div>
+
+        <div>
+          <p className="text-lg leading-9 text-[#061B3A]/65 md:text-xl">
+            {ministry.about}
+          </p>
+
+          <div className="mt-8 flex items-center gap-3">
+            <div className="h-1 w-12 rounded-full bg-[#D62828]" />
+            <div className="h-1 w-4 rounded-full bg-[#0B3D91]" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* SCRIPTURE */}
+    <section className="bg-[#061B3A] px-5 py-24 md:px-8 md:py-28">
+      <div className="mx-auto max-w-5xl text-center">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#D62828]">
+          Biblical Foundation
+        </p>
+
+        <blockquote className="mt-7 text-2xl font-medium leading-10 text-white md:text-4xl md:leading-[1.4]">
+          “{ministry.scripture}”
+        </blockquote>
+
+        <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-white/50">
+          {ministry.scriptureReference}
+        </p>
+      </div>
+    </section>
+
+    {/* PURPOSE */}
+    <section className="bg-[#F5F7FA] px-5 py-24 md:px-8 md:py-28">
+      <div className="mx-auto max-w-4xl text-center">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#0B3D91]">
+          Our Purpose
+        </p>
+
+        <h2 className="mt-5 text-3xl font-semibold leading-tight text-[#061B3A] md:text-4xl">
+          Making disciples and reaching communities.
+        </h2>
+
+        <p className="mt-6 text-base leading-8 text-[#061B3A]/65 md:text-lg">
+          {ministry.purpose}
+        </p>
+      </div>
+    </section>
+
+    {/* KEY ROLES */}
+    <section className="px-5 py-24 md:px-8 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#D62828]">
+          Key Roles
+        </p>
+
+        <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#061B3A] md:text-5xl">
+          Taking the Gospel to others.
+        </h2>
+
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          {ministry.keyRoles.map((role, index) => (
+            <div
+              key={role}
+              className="group rounded-[1.5rem] border border-[#061B3A]/10 p-7 transition duration-300 hover:-translate-y-1 hover:border-[#0B3D91]/20 hover:shadow-lg md:p-8"
+            >
+              <div className="flex items-start gap-5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0B3D91]/10 text-sm font-bold text-[#0B3D91] transition group-hover:bg-[#D62828] group-hover:text-white">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+
+                <p className="pt-1 text-base leading-7 text-[#061B3A]/70">
+                  {role}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ACTIVITIES */}
+    <section className="bg-[#F5F7FA] px-5 py-24 md:px-8 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#0B3D91]">
+          Our Activities
+        </p>
+
+        <h2 className="mt-4 text-4xl font-semibold tracking-tight text-[#061B3A] md:text-5xl">
+          Taking faith beyond the church walls.
+        </h2>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {ministry.activities.map((activity, index) => (
+            <div
+              key={activity}
+              className="rounded-[1.5rem] bg-white p-7 shadow-sm ring-1 ring-[#061B3A]/5"
+            >
+              <p className="text-xs font-bold text-[#D62828]">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+
+              <p className="mt-4 text-base leading-7 text-[#061B3A]/70">
+                {activity}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* IMPACT */}
+    <section className="bg-[#061B3A] px-5 py-24 md:px-8 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#D62828]">
+          Our Impact
+        </p>
+
+        <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight text-white md:text-5xl">
+          Taking the love of Christ to people.
+        </h2>
+
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {ministry.impact.map((item, index) => (
+            <div
+              key={item}
+              className="rounded-[1.5rem] border border-white/10 bg-white/5 p-7"
+            >
+              <p className="text-xs font-bold text-[#D62828]">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+
+              <p className="mt-4 text-sm leading-7 text-white/70">
+                {item}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* REQUIREMENTS */}
+    <section className="px-5 py-24 md:px-8 md:py-32">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-24">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#0B3D91]">
+            Requirements
+          </p>
+
+          <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-[#061B3A] md:text-5xl">
+            Ready to
+            <br />
+            reach others?
+          </h2>
+        </div>
+
+        <div className="space-y-4">
+          {ministry.requirements.map((requirement, index) => (
+            <div
+              key={requirement}
+              className="flex items-center gap-5 rounded-2xl bg-[#F5F7FA] p-5"
+            >
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#D62828] text-sm font-bold text-white">
+                {index + 1}
+              </div>
+
+              <p className="text-sm leading-6 text-[#061B3A]/70">
+                {requirement}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ADDITIONAL ACTIVITIES */}
+    <section className="bg-[#F5F7FA] px-5 py-24 md:px-8 md:py-28">
+      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center lg:gap-24">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#D62828]">
+            Beyond Sunday
+          </p>
+
+          <h2 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-[#061B3A] md:text-5xl">
+            Going beyond
+            <br />
+            the church walls.
+          </h2>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          {ministry.additionalActivities.map((activity, index) => (
+            <div
+              key={activity}
+              className="rounded-[1.5rem] bg-[#0B3D91] p-7"
+            >
+              <p className="text-xs font-bold text-white/50">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+
+              <p className="mt-4 text-lg font-semibold text-white">
+                {activity}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </>
 ) : isIntercessory ? (
   <>
     {/* ABOUT */}
