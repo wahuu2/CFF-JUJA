@@ -1,0 +1,353 @@
+import Link from "next/link";
+
+export default function YouthMinistryPage() {
+  const galleryImages = [
+    {
+      src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=85",
+      alt: "Young people spending time together",
+      title: "Community & Fellowship",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1400&q=85",
+      alt: "Young people together",
+      title: "Growing Together",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1400&q=85",
+      alt: "Friends enjoying fellowship",
+      title: "Friendships",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=1400&q=85",
+      alt: "Youth participating in an activity",
+      title: "Serving Together",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1504159506876-f8338247d9ee?auto=format&fit=crop&w=1400&q=85",
+      alt: "Young people learning together",
+      title: "Learning & Discipleship",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=85",
+      alt: "Young people working together",
+      title: "Purpose & Leadership",
+    },
+  ];
+
+  return (
+    <main className="bg-white">
+      {/* HERO */}
+      <section className="relative min-h-[75vh] overflow-hidden bg-[#061B3A]">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1800&q=85')",
+          }}
+        />
+
+        <div className="absolute inset-0 bg-[#061B3A]/80" />
+
+        <div className="absolute inset-0 bg-gradient-to-r from-[#061B3A] via-[#061B3A]/75 to-transparent" />
+
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#D62828]" />
+
+        <div className="relative mx-auto flex min-h-[75vh] max-w-7xl items-center px-5 py-32 md:px-8">
+          <div className="max-w-3xl">
+            <div className="mb-6 inline-flex items-center gap-3">
+              <span className="h-[2px] w-10 bg-[#D62828]" />
+
+              <span className="text-sm font-semibold uppercase tracking-[0.2em] text-red-300">
+                CFF Juja
+              </span>
+            </div>
+
+            <h1 className="text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl">
+              Youth
+              <span className="block text-blue-200">Ministry</span>
+            </h1>
+
+            <p className="mt-7 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
+              Raising a generation of young people who know Christ, live with
+              purpose and boldly influence their generation for the Kingdom of
+              God.
+            </p>
+
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#about"
+                className="inline-flex items-center justify-center rounded-full bg-[#D62828] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-red-950/20 transition hover:bg-[#A61F1F]"
+              >
+                Discover Our Ministry
+              </a>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
+              >
+                Get Connected
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="px-5 py-20 md:px-8 md:py-28">
+        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+          <div>
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#D62828]">
+              About the Ministry
+            </p>
+
+            <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-[#061B3A] sm:text-4xl md:text-5xl">
+              Faith. Purpose. Community.
+            </h2>
+
+            <p className="mt-6 max-w-2xl text-base leading-8 text-gray-600">
+              The Youth Ministry at CFF Juja exists to help young people build
+              a genuine relationship with Jesus Christ and discover how their
+              faith connects with everyday life.
+            </p>
+
+            <p className="mt-5 max-w-2xl text-base leading-8 text-gray-600">
+              Through Bible teaching, worship, prayer, fellowship, mentorship
+              and service, we encourage young people to grow spiritually,
+              develop godly character and use their gifts to serve God and
+              others.
+            </p>
+          </div>
+
+          <div className="rounded-3xl bg-[#061B3A] p-8 shadow-xl md:p-10">
+            <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#D62828] text-2xl text-white">
+              ✦
+            </div>
+
+            <p className="text-sm font-semibold uppercase tracking-[0.15em] text-blue-200">
+              Our Scripture
+            </p>
+
+            <blockquote className="mt-5 text-2xl font-semibold leading-relaxed text-white">
+              “Don't let anyone look down on you because you are young, but set
+              an example for the believers.”
+            </blockquote>
+
+            <p className="mt-5 text-sm font-semibold text-white/60">
+              1 Timothy 4:12
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT WE DO */}
+      <section className="bg-gray-50 px-5 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-2xl">
+            <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#D62828]">
+              What We Do
+            </p>
+
+            <h2 className="text-3xl font-bold tracking-tight text-[#061B3A] sm:text-4xl">
+              Growing together. Serving together.
+            </h2>
+
+            <p className="mt-5 text-base leading-7 text-gray-600">
+              We create spaces where young people can grow in faith, build
+              meaningful relationships and discover their God-given purpose.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                number: "01",
+                title: "Bible Study",
+                text: "Practical and relevant teaching that helps young people understand God's Word and live it out.",
+              },
+              {
+                number: "02",
+                title: "Worship & Prayer",
+                text: "Creating opportunities for young people to encounter God through worship, prayer and spiritual growth.",
+              },
+              {
+                number: "03",
+                title: "Fellowship",
+                text: "Building genuine friendships and a supportive Christian community where everyone belongs.",
+              },
+              {
+                number: "04",
+                title: "Mentorship",
+                text: "Encouraging young people through godly mentorship, guidance and accountability.",
+              },
+              {
+                number: "05",
+                title: "Leadership",
+                text: "Equipping young people to develop leadership skills and take responsibility within the church.",
+              },
+              {
+                number: "06",
+                title: "Outreach & Service",
+                text: "Giving young people opportunities to share Christ and serve their church and community.",
+              },
+            ].map((item) => (
+              <div
+                key={item.number}
+                className="group rounded-3xl border border-gray-200 bg-white p-7 transition duration-300 hover:-translate-y-1 hover:border-[#123B63]/20 hover:shadow-xl"
+              >
+                <span className="text-sm font-bold text-[#D62828]">
+                  {item.number}
+                </span>
+
+                <h3 className="mt-5 text-xl font-bold text-[#061B3A]">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-7 text-gray-600">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GALLERY */}
+      <section className="bg-white px-5 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="max-w-2xl">
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-[#D62828]">
+                Gallery
+              </p>
+
+              <h2 className="text-3xl font-bold tracking-tight text-[#061B3A] sm:text-4xl md:text-5xl">
+                More than a ministry.
+                <span className="block text-[#123B63]">It's a community.</span>
+              </h2>
+
+              <p className="mt-5 text-base leading-7 text-gray-600">
+                A glimpse into the friendships, fellowship, service and
+                experiences that shape our Youth Ministry.
+              </p>
+            </div>
+
+            <div className="hidden h-px flex-1 bg-gray-200 md:ml-12 md:block" />
+          </div>
+
+          <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+            {galleryImages.map((image, index) => (
+              <div
+                key={image.title}
+                className={`group relative overflow-hidden rounded-3xl ${
+                  index === 0 || index === 3
+                    ? "md:col-span-2 md:row-span-2"
+                    : ""
+                }`}
+              >
+                <div
+                  className={`relative ${
+                    index === 0 || index === 3
+                      ? "aspect-[4/3] md:aspect-auto md:h-full md:min-h-[420px]"
+                      : "aspect-square"
+                  }`}
+                >
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#061B3A]/80 via-transparent to-transparent opacity-70" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="text-sm font-semibold text-white md:text-base">
+                      {image.title}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FOCUS */}
+      <section className="bg-[#123B63] px-5 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-red-300">
+                Our Focus
+              </p>
+
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
+                Raising a generation with purpose.
+              </h2>
+
+              <p className="mt-6 text-base leading-8 text-white/70">
+                We want every young person to understand that their age does
+                not limit what God can do through their life.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                "Growing in Christ",
+                "Discovering Purpose",
+                "Building Character",
+                "Serving Others",
+              ].map((value, index) => (
+                <div
+                  key={value}
+                  className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D62828] text-sm font-bold text-white">
+                      {index + 1}
+                    </span>
+
+                    <p className="font-semibold text-white">{value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* GET INVOLVED */}
+      <section className="px-5 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-4xl rounded-[2rem] bg-[#061B3A] px-6 py-14 text-center shadow-2xl md:px-12">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-red-300">
+            Get Involved
+          </p>
+
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            You belong here.
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/70">
+            Come connect with other young people, grow in your relationship
+            with Christ and discover how God can use your life.
+          </p>
+
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link
+              href="/contact"
+              className="rounded-full bg-[#D62828] px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#A61F1F]"
+            >
+              Contact Us
+            </Link>
+
+            <Link
+              href="/departments"
+              className="rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              View Departments
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

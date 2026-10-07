@@ -14,26 +14,6 @@ const departments = [
         href: "/ministries/music",
       },
       {
-        name: "Children's Ministry",
-        href: "/departments/children",
-      },
-      {
-        name: "Youth Ministry",
-        href: "/departments/youth",
-      },
-      {
-        name: "Men's Ministry",
-        href: "/departments/men",
-      },
-      {
-        name: "Women's Ministry",
-        href: "/departments/women",
-      },
-      {
-        name: "Prayer Ministry",
-        href: "/departments/prayer",
-      },
-      {
         name: "Evangelism & Missions",
         href: "/ministries/evangelism",
       },
@@ -126,13 +106,13 @@ const departments = [
         href: "/departments/groups/youth",
       },
       {
-        name: "Young Adults",
-        href: "/departments/groups/young-adults",
+        name: "Children's Ministry",
+        href: "/departments/groups/children",
       },
       {
-        name: "Small Groups",
-        href: "/departments/groups/small-groups",
-      },
+  name: "Teens",
+  href: "/departments/groups/teens",
+},
       {
         name: "Fellowship Groups",
         href: "/departments/groups/fellowship",
