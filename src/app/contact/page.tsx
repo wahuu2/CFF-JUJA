@@ -237,57 +237,164 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* MAP / VISIT */}
-      <section className="bg-[#061B3A] px-5 py-24 md:px-8 md:py-28">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#D62828]">
-              Visit Us
-            </p>
+{/* =========================================================
+    VISIT CFF
+========================================================= */}
+<section
+  id="visit"
+  className="bg-[#e7ecf4] px-5 py-24 md:px-8 md:py-32"
+>
+  <div className="mx-auto max-w-7xl">
 
-            <h2 className="mt-4 text-4xl font-semibold text-white md:text-5xl">
-              Come worship with us.
-            </h2>
+    {/* HEADER */}
+    <div className="mb-12 max-w-2xl">
 
-            <p className="mt-4 max-w-xl leading-7 text-white/50">
-              Find CFF Juja and plan your visit. We look forward to welcoming
-              you.
-            </p>
-          </div>
+      <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF5A5A]">
+        Find Us
+      </p>
 
-          <div className="overflow-hidden rounded-[2rem] bg-white">
-            <div className="h-[400px] md:h-[500px]">
-              <iframe
-                src="https://www.google.com/maps?q=CFF%20Juja%2C%20Kenya&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="CFF Juja Location"
-              />
-            </div>
-          </div>
+      <h2 className="mt-4 text-4xl font-semibold leading-tight text-[#083e74] md:text-5xl">
+        Come worship with us.
+      </h2>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=CFF+Juja+Kenya"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full bg-[#D62828] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#B91C1C]"
-            >
-              Get Directions →
-            </a>
+      <p className="mt-5 max-w-xl text-base leading-8 text-[#083e74]/60">
+        Find CFF Juja and plan your visit. We look forward to welcoming
+        you into our church family.
+      </p>
 
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center rounded-full border border-white/15 px-7 py-4 text-sm font-semibold text-white transition hover:bg-white/5"
-            >
-              Back to Home
-            </Link>
-          </div>
+    </div>
+
+
+    {/* CONTENT */}
+    <div className="grid overflow-hidden rounded-[1.5rem] bg-white shadow-xl lg:grid-cols-[1.55fr_0.85fr]">
+
+      {/* =====================================================
+          MAP
+      ====================================================== */}
+      <div className="relative h-[420px] lg:h-[540px]">
+
+        <iframe
+          src="https://www.google.com/maps?q=CFF%20Juja%2C%20Kenya&output=embed"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="CFF Juja Location"
+        />
+
+        {/* MAP LABEL */}
+        <div className="absolute left-5 top-5 bg-white px-5 py-3 shadow-lg md:left-7 md:top-7">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#FF5A5A]">
+            CFF Juja
+          </p>
+
+          <p className="mt-1 text-sm font-semibold text-[#083e74]">
+            Juja, Kiambu County
+          </p>
         </div>
-      </section>
+
+      </div>
+
+
+      {/* =====================================================
+          INFORMATION
+      ====================================================== */}
+      <div className="flex flex-col justify-between bg-[#083e74] p-8 md:p-10 lg:p-12">
+
+        <div>
+
+          {/* LOCATION ICON */}
+          <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-white/10">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              className="h-6 w-6 text-[#FF5A5A]"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"
+              />
+
+              <circle
+                cx="12"
+                cy="9"
+                r="2.3"
+              />
+            </svg>
+          </div>
+
+
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.3em] text-[#FF5A5A]">
+            CFF Juja
+          </p>
+
+          <h3 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+            Visit Us
+          </h3>
+
+          <p className="mt-5 text-sm leading-7 text-white/60">
+            Christian Foundation Fellowship
+            <br />
+            Juja, Kiambu County
+            <br />
+            Kenya
+          </p>
+
+        </div>
+
+
+        {/* DETAILS */}
+        <div className="mt-12">
+
+          <div className="border-t border-white/10 pt-7">
+
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">
+              Service Times
+            </p>
+
+            <p className="mt-3 text-sm leading-6 text-white/75">
+              Official service times to be confirmed.
+            </p>
+
+          </div>
+
+
+          <div className="mt-7 border-t border-white/10 pt-7">
+
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/40">
+              Contact
+            </p>
+
+            <p className="mt-3 text-sm leading-6 text-white/75">
+              Official contact details to be confirmed.
+            </p>
+
+          </div>
+
+
+          {/* BUTTON */}
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=CFF+Juja+Kenya"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-9 inline-flex w-full items-center justify-center gap-3 bg-[#FF5A5A] px-6 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#D62828]"
+          >
+            Get Directions
+            <span>→</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
     </main>
   );
 }
