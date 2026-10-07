@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Gallery from "@/components/Gallery";
 
 const sermons = [
   {
@@ -82,7 +83,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
         </a>
 
         <a
-          href="/#departments"
+          href="/departments"
           className="text-sm font-medium text-white/75 transition hover:text-white"
         >
           Departments
@@ -1103,93 +1104,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
   </div>
 </section>
 
-{/* GALLERY */}
-<section id="gallery" className="bg-white px-5 py-24 md:px-8 md:py-32">
-  <div className="mx-auto max-w-7xl">
-
-    {/* HEADER */}
-    <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-      <div>
-        <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#C62828]">
-          Life at CFF Juja
-        </p>
-
-        <h2 className="mt-4 text-4xl font-semibold leading-tight text-[#10243D] md:text-5xl">
-          Moments of faith & fellowship.
-        </h2>
-
-        <p className="mt-5 max-w-xl leading-7 text-gray-500">
-          Take a glimpse into our worship, fellowship, community and
-          moments we share together as a church family.
-        </p>
-      </div>
-
-      <a
-        href="/gallery"
-        className="inline-flex w-fit shrink-0 items-center rounded-full bg-[#123B63] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0E2F4F]"
-      >
-        View Gallery
-        <span className="ml-2">→</span>
-      </a>
-    </div>
-
-    {/* HORIZONTAL GALLERY */}
-    <div className="flex gap-5 overflow-x-auto pb-5 snap-x snap-mandatory">
-      {[
-        {
-          src: "/images/gallery/gallery-1.jpg",
-          alt: "CFF Juja church fellowship",
-          title: "Worship & Fellowship",
-        },
-        {
-          src: "/images/gallery/gallery-2.jpg",
-          alt: "CFF Juja church service",
-          title: "Sunday Service",
-        },
-        {
-          src: "/images/gallery/gallery-3.jpg",
-          alt: "CFF Juja worship",
-          title: "Praise & Worship",
-        },
-        {
-          src: "/images/gallery/gallery-4.jpg",
-          alt: "CFF Juja community",
-          title: "Community",
-        },
-        {
-          src: "/images/gallery/gallery-5.jpg",
-          alt: "CFF Juja fellowship",
-          title: "Church Family",
-        },
-      ].map((image) => (
-        <div
-          key={image.src}
-          className="group relative h-[280px] w-[260px] shrink-0 snap-start overflow-hidden rounded-3xl sm:h-[340px] sm:w-[300px] md:h-[380px] md:w-[calc((100%-3.75rem)/4)]"
-        >
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-90" />
-
-          <div className="absolute bottom-0 left-0 p-5">
-            <p className="text-sm font-semibold text-white">
-              {image.title}
-            </p>
-            <div className="mt-2 h-1 w-10 rounded-full bg-[#C62828] transition-all duration-300 group-hover:w-16" />
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <p className="mt-3 text-xs text-gray-400 md:hidden">
-      Swipe to explore more photos →
-    </p>
-
-  </div>
-</section>
+<Gallery />
 
           {/* FIND US */}
 <section id="visit" className="bg-[#123B63] px-5 py-24 md:px-8 md:py-28">

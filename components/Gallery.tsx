@@ -69,7 +69,7 @@ export default function Gallery() {
         </div>
 
         {/* HORIZONTAL PHOTO STRIP */}
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-5">
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {images.map((image, index) => (
             <button
               key={image.src}
