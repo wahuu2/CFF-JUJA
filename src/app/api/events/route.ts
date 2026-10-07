@@ -2,11 +2,19 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Event from "@/models/Event";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await connectToDatabase();
 
-    const events = await Event.find().sort({ date: 1 });
+    const { searchParams } = new URL(request.url);
+    const status = searchParams.get("status");
+
+    const filter =
+      status === "Published"
+        ? { status: "Published" }
+        : {};
+
+    const events = await Event.find(filter).sort({ date: 1 });
 
     return NextResponse.json(events);
   } catch (error) {
@@ -32,7 +40,7 @@ export async function POST(request: Request) {
       location: body.location,
       description: body.description,
       image: body.image || "",
-      status: body.status || "draft",
+      status: body.status || "Draft",
     });
 
     return NextResponse.json(event, { status: 201 });

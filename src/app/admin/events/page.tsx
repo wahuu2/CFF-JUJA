@@ -1,377 +1,431 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Event = {
-  id: number;
+  _id: string;
   title: string;
   date: string;
   time: string;
   location: string;
-  status: "Published" | "Draft";
+  description: string;
+  image: string;
+  status: "Draft" | "Published";
 };
 
-const initialEvents: Event[] = [
-  {
-    id: 1,
-    title: "Sunday Worship Service",
-    date: "October 11, 2026",
-    time: "10:00 AM",
-    location: "CFF Juja",
-    status: "Published",
-  },
-  {
-    id: 2,
-    title: "Youth Fellowship",
-    date: "October 18, 2026",
-    time: "2:00 PM",
-    location: "CFF Juja",
-    status: "Published",
-  },
-  {
-    id: 3,
-    title: "Men's Fellowship",
-    date: "October 24, 2026",
-    time: "3:00 PM",
-    location: "CFF Juja",
-    status: "Draft",
-  },
-];
+export default function AdminEventsPage() {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [message, setMessage] = useState("");
 
-export default function EventsPage() {
-  const [events, setEvents] = useState(initialEvents);
+  async function fetchEvents() {
+    try {
+      setLoading(true);
 
-  const deleteEvent = (id: number) => {
+      const response = await fetch("/api/events");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch events");
+      }
+
+      const data = await response.json();
+      setEvents(data);
+    } catch (error) {
+      console.error(error);
+      setMessage("Failed to load events.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  async function handleDelete(id: string, title: string) {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this event?"
+      `Are you sure you want to delete "${title}"? This action cannot be undone.`
     );
 
     if (!confirmed) return;
 
-    setEvents((current) =>
-      current.filter((event) => event.id !== id)
-    );
-  };
+    try {
+      setDeletingId(id);
+      setMessage("");
+
+      const response = await fetch(`/api/events/${id}`, {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to delete event");
+      }
+
+      setEvents((currentEvents) =>
+        currentEvents.filter((event) => event._id !== id)
+      );
+
+      setMessage("Event deleted successfully.");
+    } catch (error) {
+      console.error(error);
+
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to delete event."
+      );
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
+  async function handleStatusChange(event: Event) {
+    const newStatus =
+      event.status === "Published" ? "Draft" : "Published";
+
+    try {
+      const response = await fetch(`/api/events/${event._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: event.title,
+          date: event.date,
+          time: event.time,
+          location: event.location,
+          description: event.description,
+          image: event.image,
+          status: newStatus,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to update status");
+      }
+
+      setEvents((currentEvents) =>
+        currentEvents.map((item) =>
+          item._id === event._id
+            ? { ...item, status: newStatus }
+            : item
+        )
+      );
+    } catch (error) {
+      console.error(error);
+
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to update status."
+      );
+    }
+  }
+
+  const filteredEvents = events.filter((event) => {
+    const matchesSearch =
+      event.title.toLowerCase().includes(search.toLowerCase()) ||
+      event.location.toLowerCase().includes(search.toLowerCase());
+
+    const matchesStatus =
+      statusFilter === "All" || event.status === statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  const publishedCount = events.filter(
+    (event) => event.status === "Published"
+  ).length;
+
+  const draftCount = events.filter(
+    (event) => event.status === "Draft"
+  ).length;
 
   return (
-    <div className="mx-auto max-w-7xl">
-
-      {/* HEADER */}
-      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-
+    <div>
+      {/* PAGE HEADER */}
+      <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
         <div>
-
-          <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#FF5A5A]">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#FF5A5A]">
             Content Management
           </p>
 
-          <h2 className="mt-2 text-3xl font-semibold text-[#061B3A]">
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#061B3A]">
             Events
-          </h2>
+          </h1>
 
-          <p className="mt-3 text-sm text-[#061B3A]/50">
-            Create and manage events displayed on the CFF website.
+          <p className="mt-2 text-sm text-[#061B3A]/50">
+            Create and manage church events.
           </p>
-
         </div>
 
         <Link
           href="/admin/events/new"
-          className="inline-flex items-center justify-center gap-2 bg-[#FF5A5A] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#D62828]"
+          className="inline-flex items-center justify-center bg-[#083e74] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#061B3A]"
         >
-          <span className="text-lg leading-none">+</span>
-          Add Event
+          + Add Event
         </Link>
-
       </div>
 
+      {/* MESSAGE */}
+      {message && (
+        <div className="mb-6 flex items-center justify-between border border-[#061B3A]/10 bg-white px-5 py-4 text-sm shadow-sm">
+          <span
+            className={
+              message.includes("successfully")
+                ? "text-green-700"
+                : "text-red-600"
+            }
+          >
+            {message}
+          </span>
 
-      {/* SUMMARY */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <button
+            onClick={() => setMessage("")}
+            className="text-[#061B3A]/40 hover:text-[#061B3A]"
+          >
+            ×
+          </button>
+        </div>
+      )}
 
-        <div className="border border-[#083e74]/10 bg-white p-5">
-
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#083e74]/45">
+      {/* STATS */}
+      <div className="mb-6 grid gap-4 sm:grid-cols-3">
+        <div className="border border-[#061B3A]/10 bg-white p-5 shadow-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
             Total Events
           </p>
 
           <p className="mt-3 text-3xl font-semibold text-[#061B3A]">
             {events.length}
           </p>
-
         </div>
 
-
-        <div className="border border-[#083e74]/10 bg-white p-5">
-
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#083e74]/45">
+        <div className="border border-[#061B3A]/10 bg-white p-5 shadow-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
             Published
           </p>
 
-          <p className="mt-3 text-3xl font-semibold text-[#061B3A]">
-            {
-              events.filter(
-                (event) => event.status === "Published"
-              ).length
-            }
+          <p className="mt-3 text-3xl font-semibold text-[#083e74]">
+            {publishedCount}
           </p>
-
         </div>
 
-
-        <div className="border border-[#083e74]/10 bg-white p-5">
-
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#083e74]/45">
+        <div className="border border-[#061B3A]/10 bg-white p-5 shadow-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
             Drafts
           </p>
 
-          <p className="mt-3 text-3xl font-semibold text-[#061B3A]">
-            {
-              events.filter(
-                (event) => event.status === "Draft"
-              ).length
-            }
+          <p className="mt-3 text-3xl font-semibold text-[#D62828]">
+            {draftCount}
           </p>
-
         </div>
-
       </div>
 
+      {/* FILTER BAR */}
+      <div className="mb-5 flex flex-col gap-3 border border-[#061B3A]/10 bg-white p-4 shadow-sm md:flex-row">
+        <div className="relative flex-1">
+          <input
+            type="text"
+            placeholder="Search events..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full border border-[#061B3A]/10 bg-[#F8FAFC] px-4 py-3 text-sm text-[#061B3A] outline-none focus:border-[#083e74]"
+          />
+        </div>
+
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="border border-[#061B3A]/10 bg-[#F8FAFC] px-4 py-3 text-sm font-medium text-[#061B3A] outline-none focus:border-[#083e74]"
+        >
+          <option value="All">All Statuses</option>
+          <option value="Published">Published</option>
+          <option value="Draft">Draft</option>
+        </select>
+      </div>
 
       {/* EVENTS TABLE */}
-      <section className="mt-8 border border-[#083e74]/10 bg-white">
-
-        <div className="flex flex-col justify-between gap-4 border-b border-[#083e74]/10 px-6 py-5 md:flex-row md:items-center">
-
-          <div>
-
-            <h3 className="text-lg font-semibold text-[#061B3A]">
-              All Events
-            </h3>
-
-            <p className="mt-1 text-xs text-[#061B3A]/40">
-              Manage your upcoming church events.
+      <div className="overflow-hidden border border-[#061B3A]/10 bg-white shadow-sm">
+        {loading ? (
+          <div className="flex min-h-[300px] items-center justify-center">
+            <p className="text-sm text-[#061B3A]/45">
+              Loading events...
             </p>
-
           </div>
-
-          <div className="text-xs text-[#061B3A]/40">
-            {events.length} event{events.length !== 1 ? "s" : ""}
-          </div>
-
-        </div>
-
-
-        {/* DESKTOP TABLE */}
-        <div className="hidden overflow-x-auto md:block">
-
-          <table className="w-full">
-
-            <thead>
-
-              <tr className="border-b border-[#083e74]/10 bg-[#F5F8FC] text-left">
-
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.15em] text-[#083e74]/45">
-                  Event
-                </th>
-
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.15em] text-[#083e74]/45">
-                  Date & Time
-                </th>
-
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.15em] text-[#083e74]/45">
-                  Location
-                </th>
-
-                <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.15em] text-[#083e74]/45">
-                  Status
-                </th>
-
-                <th className="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-[0.15em] text-[#083e74]/45">
-                  Actions
-                </th>
-
-              </tr>
-
-            </thead>
-
-            <tbody className="divide-y divide-[#083e74]/10">
-
-              {events.map((event) => (
-
-                <tr
-                  key={event.id}
-                  className="transition hover:bg-[#F5F8FC]/70"
-                >
-
-                  <td className="px-6 py-5">
-
-                    <p className="text-sm font-semibold text-[#061B3A]">
-                      {event.title}
-                    </p>
-
-                  </td>
-
-
-                  <td className="px-6 py-5">
-
-                    <p className="text-sm text-[#061B3A]/70">
-                      {event.date}
-                    </p>
-
-                    <p className="mt-1 text-xs text-[#061B3A]/40">
-                      {event.time}
-                    </p>
-
-                  </td>
-
-
-                  <td className="px-6 py-5 text-sm text-[#061B3A]/60">
-                    {event.location}
-                  </td>
-
-
-                  <td className="px-6 py-5">
-
-                    <span
-                      className={`text-[10px] font-bold uppercase tracking-wide ${
-                        event.status === "Published"
-                          ? "text-green-600"
-                          : "text-[#FF5A5A]"
-                      }`}
-                    >
-                      {event.status}
-                    </span>
-
-                  </td>
-
-
-                  <td className="px-6 py-5">
-
-                    <div className="flex justify-end gap-4">
-
-                      <Link
-                        href={`/admin/events/${event.id}/edit`}
-                        className="text-xs font-semibold text-[#083e74] transition hover:text-[#FF5A5A]"
-                      >
-                        Edit
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() => deleteEvent(event.id)}
-                        className="text-xs font-semibold text-red-500 transition hover:text-red-700"
-                      >
-                        Delete
-                      </button>
-
-                    </div>
-
-                  </td>
-
-                </tr>
-
-              ))}
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-
-        {/* MOBILE LIST */}
-        <div className="divide-y divide-[#083e74]/10 md:hidden">
-
-          {events.map((event) => (
-
-            <div
-              key={event.id}
-              className="p-5"
-            >
-
-              <div className="flex items-start justify-between gap-4">
-
-                <div>
-
-                  <p className="text-sm font-semibold text-[#061B3A]">
-                    {event.title}
-                  </p>
-
-                  <p className="mt-2 text-xs text-[#061B3A]/45">
-                    {event.date} · {event.time}
-                  </p>
-
-                  <p className="mt-1 text-xs text-[#061B3A]/45">
-                    {event.location}
-                  </p>
-
-                </div>
-
-                <span
-                  className={`shrink-0 text-[10px] font-bold uppercase ${
-                    event.status === "Published"
-                      ? "text-green-600"
-                      : "text-[#FF5A5A]"
-                  }`}
-                >
-                  {event.status}
-                </span>
-
-              </div>
-
-
-              <div className="mt-5 flex gap-5">
-
-                <Link
-                  href={`/admin/events/${event.id}/edit`}
-                  className="text-xs font-semibold text-[#083e74]"
-                >
-                  Edit
-                </Link>
-
-                <button
-                  type="button"
-                  onClick={() => deleteEvent(event.id)}
-                  className="text-xs font-semibold text-red-500"
-                >
-                  Delete
-                </button>
-
-              </div>
-
+        ) : filteredEvents.length === 0 ? (
+          <div className="flex min-h-[300px] flex-col items-center justify-center px-6 text-center">
+            <div className="flex h-14 w-14 items-center justify-center bg-[#F1F4F8] text-2xl text-[#083e74]">
+              +
             </div>
 
-          ))}
+            <h3 className="mt-5 text-lg font-semibold text-[#061B3A]">
+              No events found
+            </h3>
 
-        </div>
-
-
-        {/* EMPTY STATE */}
-        {events.length === 0 && (
-          <div className="px-6 py-16 text-center">
-
-            <p className="text-sm font-semibold text-[#061B3A]">
-              No events yet.
-            </p>
-
-            <p className="mt-2 text-xs text-[#061B3A]/40">
-              Create your first church event.
+            <p className="mt-2 max-w-sm text-sm leading-6 text-[#061B3A]/45">
+              Try changing your search or filter, or create a new event.
             </p>
 
             <Link
               href="/admin/events/new"
-              className="mt-5 inline-flex bg-[#FF5A5A] px-5 py-3 text-xs font-semibold text-white"
+              className="mt-5 bg-[#083e74] px-5 py-3 text-sm font-semibold text-white hover:bg-[#061B3A]"
             >
               Add Event
             </Link>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[950px] text-left">
+              <thead>
+                <tr className="border-b border-[#061B3A]/10 bg-[#F8FAFC]">
+                  <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
+                    Event
+                  </th>
 
+                  <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
+                    Date
+                  </th>
+
+                  <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
+                    Location
+                  </th>
+
+                  <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
+                    Status
+                  </th>
+
+                  <th className="px-6 py-4 text-right text-[10px] font-bold uppercase tracking-[0.18em] text-[#061B3A]/40">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {filteredEvents.map((event) => (
+                  <tr
+                    key={event._id}
+                    className="border-b border-[#061B3A]/10 last:border-0 hover:bg-[#FAFBFC]"
+                  >
+                    {/* EVENT */}
+                    <td className="px-6 py-5">
+                      <div className="flex items-center gap-4">
+                        {event.image ? (
+                          <img
+                            src={event.image}
+                            alt=""
+                            className="h-14 w-20 shrink-0 object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-14 w-20 shrink-0 items-center justify-center bg-[#F1F4F8] text-xs text-[#061B3A]/30">
+                            No image
+                          </div>
+                        )}
+
+                        <div>
+                          <p className="font-semibold text-[#061B3A]">
+                            {event.title}
+                          </p>
+
+                          <p className="mt-1 max-w-xs truncate text-xs text-[#061B3A]/40">
+                            {event.time}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* DATE */}
+                    <td className="px-6 py-5">
+                      <p className="text-sm font-medium text-[#061B3A]">
+                        {event.date}
+                      </p>
+                    </td>
+
+                    {/* LOCATION */}
+                    <td className="px-6 py-5">
+                      <p className="text-sm text-[#061B3A]/60">
+                        {event.location}
+                      </p>
+                    </td>
+
+                    {/* STATUS */}
+                    <td className="px-6 py-5">
+                      <button
+                        onClick={() => handleStatusChange(event)}
+                        title="Click to change status"
+                        className={`inline-flex items-center gap-2 border px-3 py-1.5 text-xs font-semibold transition ${
+                          event.status === "Published"
+                            ? "border-green-200 bg-green-50 text-green-700 hover:bg-green-100"
+                            : "border-orange-200 bg-orange-50 text-orange-700 hover:bg-orange-100"
+                        }`}
+                      >
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full ${
+                            event.status === "Published"
+                              ? "bg-green-500"
+                              : "bg-orange-500"
+                          }`}
+                        />
+
+                        {event.status}
+                      </button>
+                    </td>
+
+                    {/* ACTIONS */}
+                    <td className="px-6 py-5">
+                      <div className="flex items-center justify-end gap-2">
+                        {event.status === "Published" && (
+                          <Link
+                            href={`/events/${event._id}`}
+                            target="_blank"
+                            className="border border-[#061B3A]/10 px-3 py-2 text-xs font-semibold text-[#061B3A]/65 transition hover:border-[#083e74] hover:text-[#083e74]"
+                          >
+                            View
+                          </Link>
+                        )}
+
+                        <Link
+                          href={`/admin/events/${event._id}`}
+                          className="border border-[#061B3A]/10 px-3 py-2 text-xs font-semibold text-[#061B3A]/65 transition hover:border-[#083e74] hover:text-[#083e74]"
+                        >
+                          Edit
+                        </Link>
+
+                        <button
+                          onClick={() =>
+                            handleDelete(event._id, event.title)
+                          }
+                          disabled={deletingId === event._id}
+                          className="border border-red-100 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          {deletingId === event._id
+                            ? "Deleting..."
+                            : "Delete"}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
+      </div>
 
-      </section>
-
+      {/* RESULTS COUNT */}
+      {!loading && filteredEvents.length > 0 && (
+        <p className="mt-4 text-xs text-[#061B3A]/40">
+          Showing {filteredEvents.length} of {events.length} events
+        </p>
+      )}
     </div>
   );
 }

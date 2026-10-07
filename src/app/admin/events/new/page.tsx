@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export default function NewEventPage() {
   const [title, setTitle] = useState("");
@@ -9,95 +9,130 @@ export default function NewEventPage() {
   const [time, setTime] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState<"Published" | "Draft">(
-    "Draft"
-  );
+  const [image, setImage] = useState("");
+  const [status, setStatus] = useState<"Draft" | "Published">("Draft");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
-  try {
-    const response = await fetch("/api/events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        date,
-        time,
-        location,
-        description,
-        status,
-      }),
-    });
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-    const data = await response.json();
+    setSaving(true);
+    setError("");
 
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to create event");
+    try {
+      const response = await fetch("/api/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          date,
+          time,
+          location,
+          description,
+          image,
+          status,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to create event");
+      }
+
+      window.location.href = "/admin/events";
+    } catch (error) {
+      console.error("Create event error:", error);
+
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Failed to create event. Please try again."
+      );
+    } finally {
+      setSaving(false);
     }
-
-    alert("Event created successfully!");
-
-    window.location.href = "/admin/events";
-  } catch (error) {
-    console.error("Create event error:", error);
-    alert("Failed to create event. Please try again.");
   }
-};
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="mx-auto max-w-5xl space-y-8">
 
-      {/* HEADER */}
-      <div className="mb-8">
+      {/* =========================================================
+          HEADER
+      ========================================================= */}
+      <div className="flex flex-col gap-5 border-b border-[#D9E0E8] pb-7 md:flex-row md:items-end md:justify-between">
 
-        <Link
-          href="/admin/events"
-          className="text-xs font-semibold text-[#083e74] transition hover:text-[#FF5A5A]"
-        >
-          ← Back to Events
-        </Link>
+        <div>
+          <Link
+            href="/admin/events"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#64748B] transition hover:text-[#083e74]"
+          >
+            <span>←</span>
+            Back to Events
+          </Link>
 
-        <p className="mt-7 text-[10px] font-bold uppercase tracking-[0.25em] text-[#FF5A5A]">
-          Events
-        </p>
+          <p className="mt-6 text-[11px] font-bold uppercase tracking-[0.2em] text-[#FF5A5A]">
+            Event Management
+          </p>
 
-        <h2 className="mt-2 text-3xl font-semibold text-[#061B3A]">
-          Add New Event
-        </h2>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#061B3A]">
+            Add Event
+          </h1>
 
-        <p className="mt-3 text-sm text-[#061B3A]/50">
-          Create an event that can be displayed on the CFF website.
-        </p>
+          <p className="mt-2 text-sm text-[#64748B]">
+            Create an event that can appear on the CFF website.
+          </p>
+        </div>
 
       </div>
 
-
-      {/* FORM */}
-      <form
-        onSubmit={handleSubmit}
-        className="border border-[#083e74]/10 bg-white"
-      >
-
-        {/* EVENT DETAILS */}
-        <div className="border-b border-[#083e74]/10 p-6 md:p-8">
-
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF5A5A]">
-            Event Details
+      {/* =========================================================
+          ERROR
+      ========================================================= */}
+      {error && (
+        <div className="border border-[#F1CACA] bg-[#FFF5F5] px-5 py-4">
+          <p className="text-sm font-semibold text-[#D62828]">
+            Unable to create event
           </p>
 
-          <div className="mt-7 space-y-6">
+          <p className="mt-1 text-xs text-[#9B4A4A]">
+            {error}
+          </p>
+        </div>
+      )}
+
+      {/* =========================================================
+          FORM
+      ========================================================= */}
+      <form onSubmit={handleSubmit}>
+
+        <div className="border border-[#D9E0E8] bg-white">
+
+          {/* FORM HEADER */}
+          <div className="border-b border-[#D9E0E8] px-6 py-5 md:px-8">
+            <h2 className="text-sm font-semibold text-[#061B3A]">
+              Event Details
+            </h2>
+
+            <p className="mt-1 text-xs text-[#94A3B8]">
+              Enter the information visitors will see on the website.
+            </p>
+          </div>
+
+          {/* FORM CONTENT */}
+          <div className="space-y-7 px-6 py-7 md:px-8 md:py-9">
 
             {/* TITLE */}
             <div>
-
               <label
                 htmlFor="title"
-                className="text-sm font-semibold text-[#061B3A]"
+                className="mb-2 block text-xs font-semibold text-[#334155]"
               >
-                Event Name
+                Event Title
               </label>
 
               <input
@@ -105,22 +140,19 @@ export default function NewEventPage() {
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Youth Sunday"
+                placeholder="e.g. CFF Sunday Service"
                 required
-                className="mt-2 w-full border border-[#083e74]/15 bg-white px-4 py-3 text-sm text-[#061B3A] outline-none transition placeholder:text-[#061B3A]/25 focus:border-[#FF5A5A]"
+                className="h-12 w-full border border-[#D9E0E8] bg-[#F8FAFC] px-4 text-sm text-[#061B3A] outline-none transition placeholder:text-[#A0A9B5] focus:border-[#083e74] focus:bg-white"
               />
-
             </div>
 
-
-            {/* DATE + TIME */}
-            <div className="grid gap-6 sm:grid-cols-2">
+            {/* DATE / TIME */}
+            <div className="grid gap-7 md:grid-cols-2">
 
               <div>
-
                 <label
                   htmlFor="date"
-                  className="text-sm font-semibold text-[#061B3A]"
+                  className="mb-2 block text-xs font-semibold text-[#334155]"
                 >
                   Date
                 </label>
@@ -131,41 +163,36 @@ export default function NewEventPage() {
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   required
-                  className="mt-2 w-full border border-[#083e74]/15 bg-white px-4 py-3 text-sm text-[#061B3A] outline-none transition focus:border-[#FF5A5A]"
+                  className="h-12 w-full border border-[#D9E0E8] bg-[#F8FAFC] px-4 text-sm text-[#061B3A] outline-none transition focus:border-[#083e74] focus:bg-white"
                 />
-
               </div>
 
-
               <div>
-
                 <label
                   htmlFor="time"
-                  className="text-sm font-semibold text-[#061B3A]"
+                  className="mb-2 block text-xs font-semibold text-[#334155]"
                 >
                   Time
                 </label>
 
                 <input
                   id="time"
-                  type="time"
+                  type="text"
                   value={time}
                   onChange={(e) => setTime(e.target.value)}
+                  placeholder="e.g. 10:00 AM"
                   required
-                  className="mt-2 w-full border border-[#083e74]/15 bg-white px-4 py-3 text-sm text-[#061B3A] outline-none transition focus:border-[#FF5A5A]"
+                  className="h-12 w-full border border-[#D9E0E8] bg-[#F8FAFC] px-4 text-sm text-[#061B3A] outline-none transition placeholder:text-[#A0A9B5] focus:border-[#083e74] focus:bg-white"
                 />
-
               </div>
 
             </div>
 
-
             {/* LOCATION */}
             <div>
-
               <label
                 htmlFor="location"
-                className="text-sm font-semibold text-[#061B3A]"
+                className="mb-2 block text-xs font-semibold text-[#334155]"
               >
                 Location
               </label>
@@ -177,18 +204,15 @@ export default function NewEventPage() {
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g. CFF Juja"
                 required
-                className="mt-2 w-full border border-[#083e74]/15 bg-white px-4 py-3 text-sm text-[#061B3A] outline-none transition placeholder:text-[#061B3A]/25 focus:border-[#FF5A5A]"
+                className="h-12 w-full border border-[#D9E0E8] bg-[#F8FAFC] px-4 text-sm text-[#061B3A] outline-none transition placeholder:text-[#A0A9B5] focus:border-[#083e74] focus:bg-white"
               />
-
             </div>
-
 
             {/* DESCRIPTION */}
             <div>
-
               <label
                 htmlFor="description"
-                className="text-sm font-semibold text-[#061B3A]"
+                className="mb-2 block text-xs font-semibold text-[#334155]"
               >
                 Description
               </label>
@@ -197,69 +221,86 @@ export default function NewEventPage() {
                 id="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Tell visitors about this event..."
+                placeholder="Describe the event..."
                 rows={6}
-                className="mt-2 w-full resize-none border border-[#083e74]/15 bg-white px-4 py-3 text-sm leading-7 text-[#061B3A] outline-none transition placeholder:text-[#061B3A]/25 focus:border-[#FF5A5A]"
+                required
+                className="w-full resize-none border border-[#D9E0E8] bg-[#F8FAFC] px-4 py-3 text-sm leading-6 text-[#061B3A] outline-none transition placeholder:text-[#A0A9B5] focus:border-[#083e74] focus:bg-white"
+              />
+            </div>
+
+            {/* IMAGE */}
+            <div>
+              <label
+                htmlFor="image"
+                className="mb-2 block text-xs font-semibold text-[#334155]"
+              >
+                Event Image URL
+                <span className="ml-2 font-normal text-[#94A3B8]">
+                  Optional
+                </span>
+              </label>
+
+              <input
+                id="image"
+                type="url"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+                placeholder="https://..."
+                className="h-12 w-full border border-[#D9E0E8] bg-[#F8FAFC] px-4 text-sm text-[#061B3A] outline-none transition placeholder:text-[#A0A9B5] focus:border-[#083e74] focus:bg-white"
               />
 
+              <p className="mt-2 text-xs text-[#94A3B8]">
+                Image uploads will be added later. For now, you can use an
+                image URL.
+              </p>
+            </div>
+
+            {/* STATUS */}
+            <div>
+              <label
+                htmlFor="status"
+                className="mb-2 block text-xs font-semibold text-[#334155]"
+              >
+                Status
+              </label>
+
+              <select
+                id="status"
+                value={status}
+                onChange={(e) =>
+                  setStatus(e.target.value as "Draft" | "Published")
+                }
+                className="h-12 w-full border border-[#D9E0E8] bg-[#F8FAFC] px-4 text-sm text-[#061B3A] outline-none transition focus:border-[#083e74] focus:bg-white md:max-w-xs"
+              >
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
+              </select>
+
+              <p className="mt-2 text-xs text-[#94A3B8]">
+                Draft events stay hidden from the public website.
+              </p>
             </div>
 
           </div>
 
-        </div>
-
-
-        {/* PUBLISHING */}
-        <div className="p-6 md:p-8">
-
-          <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#FF5A5A]">
-            Publishing
-          </p>
-
-          <div className="mt-6">
-
-            <label
-              htmlFor="status"
-              className="text-sm font-semibold text-[#061B3A]"
-            >
-              Status
-            </label>
-
-            <select
-              id="status"
-              value={status}
-              onChange={(e) =>
-                setStatus(e.target.value as "Published" | "Draft")
-              }
-              className="mt-2 w-full border border-[#083e74]/15 bg-white px-4 py-3 text-sm text-[#061B3A] outline-none transition focus:border-[#FF5A5A]"
-            >
-              <option value="Draft">
-                Draft
-              </option>
-
-              <option value="Published">
-                Published
-              </option>
-            </select>
-
-          </div>
-
-
-          {/* ACTIONS */}
-          <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          {/* =====================================================
+              ACTIONS
+          ===================================================== */}
+          <div className="flex flex-col-reverse gap-3 border-t border-[#D9E0E8] bg-[#F8FAFC] px-6 py-5 sm:flex-row sm:justify-end md:px-8">
 
             <Link
               href="/admin/events"
-              className="inline-flex items-center justify-center border border-[#083e74]/15 px-6 py-3 text-sm font-semibold text-[#083e74] transition hover:bg-[#F5F8FC]"
+              className="inline-flex h-11 items-center justify-center border border-[#D9E0E8] bg-white px-5 text-sm font-semibold text-[#475569] transition hover:border-[#94A3B8] hover:text-[#061B3A]"
             >
               Cancel
             </Link>
 
             <button
               type="submit"
-              className="inline-flex items-center justify-center bg-[#FF5A5A] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#D62828]"
+              disabled={saving}
+              className="inline-flex h-11 items-center justify-center bg-[#061B3A] px-6 text-sm font-semibold text-white transition hover:bg-[#083e74] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Save Event
+              {saving ? "Saving..." : "Create Event"}
             </button>
 
           </div>
