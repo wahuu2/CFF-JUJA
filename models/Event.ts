@@ -36,10 +36,10 @@ const EventSchema = new Schema(
     },
 
     status: {
-      type: String,
-      enum: ["draft", "published"],
-      default: "draft",
-    },
+  type: String,
+  enum: ["Draft", "Published"],
+  default: "Draft",
+},
   },
   {
     timestamps: true,

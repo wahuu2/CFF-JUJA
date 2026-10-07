@@ -13,20 +13,39 @@ export default function NewEventPage() {
     "Draft"
   );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    console.log({
-      title,
-      date,
-      time,
-      location,
-      description,
-      status,
+  try {
+    const response = await fetch("/api/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        date,
+        time,
+        location,
+        description,
+        status,
+      }),
     });
 
-    alert("Event saved successfully.");
-  };
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to create event");
+    }
+
+    alert("Event created successfully!");
+
+    window.location.href = "/admin/events";
+  } catch (error) {
+    console.error("Create event error:", error);
+    alert("Failed to create event. Please try again.");
+  }
+};
 
   return (
     <div className="mx-auto max-w-4xl">

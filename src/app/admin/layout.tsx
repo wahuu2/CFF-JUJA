@@ -7,22 +7,29 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#F5F8FC]">
+    <div className="min-h-screen bg-[#F1F4F8] text-[#061B3A]">
 
-      {/* SIDEBAR */}
+      {/* =========================================================
+          ADMIN SIDEBAR
+      ========================================================= */}
       <AdminSidebar />
 
-      {/* MAIN AREA */}
-      <div className="lg:pl-64">
+      {/* =========================================================
+          ADMIN WORKSPACE
+      ========================================================= */}
+      <div className="min-h-screen lg:pl-64">
 
+        {/* TOP HEADER */}
         <AdminHeader />
 
-        <main className="p-5 md:p-8">
-          {children}
+        {/* CONTENT */}
+        <main className="px-5 py-6 md:px-8 md:py-8 lg:px-10">
+          <div className="mx-auto w-full max-w-[1500px]">
+            {children}
+          </div>
         </main>
 
       </div>
-
     </div>
   );
 }
