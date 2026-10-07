@@ -89,7 +89,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
         </a>
 
         <a
-          href="/#contact"
+          href="/contact"
           className="text-sm font-medium text-white/75 transition hover:text-white"
         >
           Contact
@@ -120,7 +120,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
 
         {/* SERMONS */}
         <a
-          href="/#sermons"
+          href="/sermons"
           className="hidden rounded-full bg-[#D62828] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-900/15 transition hover:bg-[#A61F1F] md:inline-flex"
         >
           Sermons
@@ -1126,70 +1126,68 @@ const [isMenuOpen, setIsMenuOpen] = useState(false);
 
       <a
         href="/gallery"
-        className="inline-flex w-fit items-center rounded-full bg-[#123B63] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0E2F4F]"
+        className="inline-flex w-fit shrink-0 items-center rounded-full bg-[#123B63] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0E2F4F]"
       >
         View Gallery
         <span className="ml-2">→</span>
       </a>
     </div>
 
-    {/* GALLERY GRID */}
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    {/* HORIZONTAL GALLERY */}
+    <div className="flex gap-5 overflow-x-auto pb-5 snap-x snap-mandatory">
+      {[
+        {
+          src: "/images/gallery/gallery-1.jpg",
+          alt: "CFF Juja church fellowship",
+          title: "Worship & Fellowship",
+        },
+        {
+          src: "/images/gallery/gallery-2.jpg",
+          alt: "CFF Juja church service",
+          title: "Sunday Service",
+        },
+        {
+          src: "/images/gallery/gallery-3.jpg",
+          alt: "CFF Juja worship",
+          title: "Praise & Worship",
+        },
+        {
+          src: "/images/gallery/gallery-4.jpg",
+          alt: "CFF Juja community",
+          title: "Community",
+        },
+        {
+          src: "/images/gallery/gallery-5.jpg",
+          alt: "CFF Juja fellowship",
+          title: "Church Family",
+        },
+      ].map((image) => (
+        <div
+          key={image.src}
+          className="group relative h-[280px] w-[260px] shrink-0 snap-start overflow-hidden rounded-3xl sm:h-[340px] sm:w-[300px] md:h-[380px] md:w-[calc((100%-3.75rem)/4)]"
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          />
 
-      {/* LARGE IMAGE */}
-      <div className="group relative col-span-2 row-span-2 overflow-hidden rounded-3xl">
-        <img
-          src="/images/gallery/gallery-1.jpg"
-          alt="CFF Juja church fellowship"
-          className="h-full min-h-[320px] w-full object-cover transition duration-500 group-hover:scale-105"
-        />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-90" />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-        <div className="absolute bottom-5 left-5">
-          <p className="text-sm font-semibold text-white">
-            Worship & Fellowship
-          </p>
+          <div className="absolute bottom-0 left-0 p-5">
+            <p className="text-sm font-semibold text-white">
+              {image.title}
+            </p>
+            <div className="mt-2 h-1 w-10 rounded-full bg-[#C62828] transition-all duration-300 group-hover:w-16" />
+          </div>
         </div>
-      </div>
-
-      {/* IMAGE 2 */}
-      <div className="group relative overflow-hidden rounded-3xl">
-        <img
-          src="/images/gallery/gallery-2.jpg"
-          alt="CFF Juja church service"
-          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
-        />
-      </div>
-
-      {/* IMAGE 3 */}
-      <div className="group relative overflow-hidden rounded-3xl">
-        <img
-          src="/images/gallery/gallery-3.jpg"
-          alt="CFF Juja worship"
-          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
-        />
-      </div>
-
-      {/* IMAGE 4 */}
-      <div className="group relative overflow-hidden rounded-3xl">
-        <img
-          src="/images/gallery/gallery-4.jpg"
-          alt="CFF Juja community"
-          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
-        />
-      </div>
-
-      {/* IMAGE 5 */}
-      <div className="group relative overflow-hidden rounded-3xl">
-        <img
-          src="/images/gallery/gallery-5.jpg"
-          alt="CFF Juja fellowship"
-          className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 md:h-52"
-        />
-      </div>
-
+      ))}
     </div>
+
+    <p className="mt-3 text-xs text-gray-400 md:hidden">
+      Swipe to explore more photos →
+    </p>
+
   </div>
 </section>
 
