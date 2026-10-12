@@ -229,11 +229,11 @@ return (
 
         {/* PRIMARY BUTTON */}
         <Link
-          href="#welcome"
+          href="/about"
           className="inline-flex items-center justify-center gap-3 rounded-full bg-[#D62828] px-7 py-4 text-sm font-semibold text-white shadow-xl shadow-[#061B3A]/30 transition duration-300 hover:-translate-y-0.5 hover:bg-[#B91F1F]"
         >
           Welcome to CFF
-          <span>→</span>
+          
         </Link>
 
 
